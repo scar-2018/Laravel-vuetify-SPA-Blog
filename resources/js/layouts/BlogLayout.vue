@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex flex-grow-1">
+  <div>
     <v-app-bar
-      absolute
+      fixed
       color="white"
       elevate-on-scroll
     >
@@ -15,7 +15,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 color="primary"
-                text
+                outlined
                 v-bind="attrs"
                 v-on="on"
                 class="mx-2"
@@ -40,7 +40,7 @@
                 color="primary"
                 v-bind="attrs"
                 v-on="on"
-                text
+                outlined
               >
                 Categories
                 <v-icon right>{{ menuCategories ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
@@ -68,10 +68,10 @@
       </div>
     </v-app-bar>
 
-    <v-main>
+    <v-main style="margin-top: 80px;">
       <v-container class="fill-height">
         <v-layout>
-          <slot></slot>
+          <router-view></router-view>
         </v-layout>
       </v-container>
     </v-main>

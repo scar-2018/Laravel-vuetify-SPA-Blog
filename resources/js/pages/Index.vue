@@ -1,24 +1,82 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Home Component</div>
-
-                    <div class="card-body">
-                        I'm an home component.
-                    </div>
-                    <v-card>I am card</v-card>
-                    <v-btn color="primary">btn</v-btn>
-                </div>
-            </div>
+  <div class="d-flex flex-grow-1">
+    <v-row justify="center">
+      <v-col cols="12" sm="8">
+        <div>
+          <h2>Blogs</h2>
+          <post-card
+            v-for="(post, i) in posts"
+            :key="i"
+            :post="post"
+            class="my-4"
+          ></post-card>
         </div>
-    </div>
+      </v-col>
+      <v-col cols="12" sm="4">
+        <div>
+          <h2>Categories</h2>
+          <v-card
+            class="mt-4"
+          >
+            <v-list shaped>
+              <v-list-item-group
+                v-model="category"
+              >
+                <v-list-item
+                  v-for="(category, i) in categories"
+                  :key="i"
+                  :value="category.id"
+                  active-class="primary--text"
+                >
+                  <template v-slot:default="{ active }">
+                    <v-list-item-content>
+                      <v-list-item-title v-text="category.name"></v-list-item-title>
+                    </v-list-item-content>
+
+                    <v-list-item-action>
+                      <v-checkbox
+                        :input-value="active"
+                        color="primary"
+                      ></v-checkbox>
+                    </v-list-item-action>
+                  </template>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-card>
+        </div>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
-    export default {
-        mounted() {
-        }
+  import { mapState, mapActions } from 'vuex'
+
+  import PostCard from '../components/PostCard'
+
+  export default {
+    components: {
+      PostCard
+    },
+    data() {
+      return {
+        category: ''
+      }
+    },
+    computed: {
+      ...mapState({
+        posts: (state) => state.posts.posts,
+        categories: (state) => state.categories.categories
+      })
+    },
+    mounted() {
+      this.getPosts()
+    },
+    methods: {
+      ...mapActions({
+        getPosts: 'posts/getPosts'
+      })
     }
+  }
 </script>

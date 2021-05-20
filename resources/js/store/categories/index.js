@@ -29,6 +29,11 @@ const categories = {
 
       commit('SET_LOADING_CATEGORIES', false)
     }
+  },
+  getters: {
+    categoryById: (state) => (id) => {
+      return state.categories.find((category) => category.id == id)
+    }
   }
 }
 

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 // Global vuex
 import categories from './categories'
+import posts from './posts'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,8 @@ Vue.use(Vuex)
  */
 const store = new Vuex.Store({
   modules: {
-    categories
+    categories,
+    posts
   }
 })
 
