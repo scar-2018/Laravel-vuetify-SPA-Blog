@@ -9,7 +9,16 @@ class Post extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
+    
     public function category() {
-    	return $this->hasOne(\App\Models\Category::class);
+    	return $this->belongsTo(\App\Models\Category::class);
+    }
+
+    public function creator() {
+    	return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 }

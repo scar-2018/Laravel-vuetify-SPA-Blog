@@ -4,15 +4,23 @@ const posts = {
   namespaced: true,
   state : {
     loadingPosts: false,
-    posts: []
+    loadingPost: false,
+    posts: [],
+    post: null
   },
   mutations : {
     SET_LOADING_POSTS(state, loading) {
       state.loadingPosts = loading
     },
+    SET_LOADING_POST(state, loading) {
+      state.loadingPost = loading
+    },
 
     SET_POSTS(state, posts) {
       state.posts = posts
+    },
+    SET_POST(state, post) {
+      state.post = post
     }
   },
   actions : {
@@ -22,12 +30,26 @@ const posts = {
       try {
         const response = await postsApi.getPosts()
 
-        commit('SET_POSTS', response.data.posts)
+        commit('SET_POSTS', response.data.data)
       } catch(err) {
         console.log(err)
       }
 
       commit('SET_LOADING_POSTS', false)
+    },
+
+    async getPost({ store, commit }, slug) {
+      commit('SET_LOADING_POST', true)
+      
+      try {
+        const response = await postsApi.getPost(slug)
+
+        commit('SET_POST', response.data.data)
+      } catch(err) {
+        console.log(err)
+      }
+
+      commit('SET_LOADING_POST', false)
     }
   }
 }

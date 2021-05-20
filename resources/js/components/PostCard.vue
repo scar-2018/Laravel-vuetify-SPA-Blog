@@ -6,21 +6,18 @@
       height="250"
       src="cover.jpg"
     ></v-img>
-    <v-chip class="ml-4 mt-2" label color="" dark>
-      <v-icon left>
-        mdi-label
-      </v-icon>
-      {{ categoryById(post.category_id).name }}
+    <v-chip class="ml-4 mt-4 mb-n4" label color="" dark small>
+      {{ post.category.name }}
     </v-chip>
     <v-card-title>{{ post.title }}</v-card-title>
-    <v-card-subtitle>{{ post.created_at }}</v-card-subtitle>
+    <v-card-subtitle>{{ post.ago }}</v-card-subtitle>
     <v-card-text>
       {{ post.content }}
     </v-card-text>
     <v-card-actions>
       <v-list-item class="grow">
         <v-list-item-content>
-          <v-list-item-title><router-link to="/">Continue Reading</router-link></v-list-item-title>
+          <v-list-item-title><router-link :to="'/' + post.slug">Continue Reading</router-link></v-list-item-title>
         </v-list-item-content>
 
         <v-row
@@ -35,7 +32,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions, mapGetters } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     props: {
@@ -50,9 +47,6 @@
       }
     },
     computed: {
-      ...mapGetters({
-        categoryById: 'categories/categoryById'
-      })
     },
     mounted() {
     },

@@ -34,10 +34,7 @@
                     </v-list-item-content>
 
                     <v-list-item-action>
-                      <v-checkbox
-                        :input-value="active"
-                        color="primary"
-                      ></v-checkbox>
+                      <span>{{ category.posts_count }}</span>
                     </v-list-item-action>
                   </template>
                 </v-list-item>

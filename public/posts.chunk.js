@@ -1,4 +1,4 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["index"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["posts"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PostCard.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************************!*\
@@ -18,9 +18,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
 //
 //
 //
@@ -91,9 +88,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
 //
 //
 //
@@ -340,19 +334,16 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-chip",
-        { staticClass: "ml-4 mt-2", attrs: { label: "", color: "", dark: "" } },
-        [
-          _c("v-icon", { attrs: { left: "" } }, [
-            _vm._v("\n      mdi-blinds\n    ")
-          ]),
-          _vm._v("\n    " + _vm._s(_vm.post.category.name) + "\n  ")
-        ],
-        1
+        {
+          staticClass: "ml-4 mt-4 mb-n4",
+          attrs: { label: "", color: "", dark: "", small: "" }
+        },
+        [_vm._v("\n    " + _vm._s(_vm.post.category.name) + "\n  ")]
       ),
       _vm._v(" "),
       _c("v-card-title", [_vm._v(_vm._s(_vm.post.title))]),
       _vm._v(" "),
-      _c("v-card-subtitle", [_vm._v(_vm._s(_vm.post.created_at))]),
+      _c("v-card-subtitle", [_vm._v(_vm._s(_vm.post.ago))]),
       _vm._v(" "),
       _c("v-card-text", [_vm._v("\n    " + _vm._s(_vm.post.content) + "\n  ")]),
       _vm._v(" "),
@@ -369,9 +360,11 @@ var render = function() {
                   _c(
                     "v-list-item-title",
                     [
-                      _c("router-link", { attrs: { to: "/" } }, [
-                        _vm._v("Continue Reading")
-                      ])
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/" + _vm.post.slug } },
+                        [_vm._v("Continue Reading")]
+                      )
                     ],
                     1
                   )
@@ -496,18 +489,11 @@ var render = function() {
                                           1
                                         ),
                                         _vm._v(" "),
-                                        _c(
-                                          "v-list-item-action",
-                                          [
-                                            _c("v-checkbox", {
-                                              attrs: {
-                                                "input-value": active,
-                                                color: "primary"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        )
+                                        _c("v-list-item-action", [
+                                          _c("span", [
+                                            _vm._v(_vm._s(category.posts_count))
+                                          ])
+                                        ])
                                       ]
                                     }
                                   }

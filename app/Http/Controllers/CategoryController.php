@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -16,7 +17,7 @@ class CategoryController extends Controller
     {
         $categories = Category::orderBy('name')->get();
 
-        return response()->json(compact('categories'));
+        return CategoryResource::collection($categories);
     }
 
     /**

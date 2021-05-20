@@ -22,7 +22,7 @@ const categories = {
       try {
         const response = await categoriesApi.getCategories()
 
-        commit('SET_CATEGORIES', response.data.categories)
+        commit('SET_CATEGORIES', response.data.data)
       } catch(err) {
         console.log(err)
       }

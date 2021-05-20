@@ -2227,9 +2227,18 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [{
   path: "/",
   component: function component() {
-    return __webpack_require__.e(/*! import() | index */ "index").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Index.vue */ "./resources/js/pages/Index.vue"));
+    return __webpack_require__.e(/*! import() | posts */ "posts").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Index.vue */ "./resources/js/pages/Index.vue"));
   },
-  name: "index",
+  name: "posts",
+  meta: {
+    layout: "blog-layout"
+  }
+}, {
+  path: "/:slug",
+  component: function component() {
+    return __webpack_require__.e(/*! import() | post */ "post").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Post.vue */ "./resources/js/pages/Post.vue"));
+  },
+  name: "post",
   meta: {
     layout: "blog-layout"
   }
@@ -2271,6 +2280,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   getPosts: function getPosts() {
     return axios.get('/posts');
+  },
+  getPost: function getPost(slug) {
+    return axios.get("/posts/".concat(slug));
   }
 });
 
@@ -2327,7 +2339,7 @@ var categories = {
 
               case 5:
                 response = _context.sent;
-                commit('SET_CATEGORIES', response.data.categories);
+                commit('SET_CATEGORIES', response.data.data);
                 _context.next = 12;
                 break;
 
@@ -2422,14 +2434,22 @@ var posts = {
   namespaced: true,
   state: {
     loadingPosts: false,
-    posts: []
+    loadingPost: false,
+    posts: [],
+    post: null
   },
   mutations: {
     SET_LOADING_POSTS: function SET_LOADING_POSTS(state, loading) {
       state.loadingPosts = loading;
     },
+    SET_LOADING_POST: function SET_LOADING_POST(state, loading) {
+      state.loadingPost = loading;
+    },
     SET_POSTS: function SET_POSTS(state, posts) {
       state.posts = posts;
+    },
+    SET_POST: function SET_POST(state, post) {
+      state.post = post;
     }
   },
   actions: {
@@ -2448,7 +2468,7 @@ var posts = {
 
               case 5:
                 response = _context.sent;
-                commit('SET_POSTS', response.data.posts);
+                commit('SET_POSTS', response.data.data);
                 _context.next = 12;
                 break;
 
@@ -2466,6 +2486,41 @@ var posts = {
             }
           }
         }, _callee, null, [[2, 9]]);
+      }))();
+    },
+    getPost: function getPost(_ref2, slug) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var store, commit, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                store = _ref2.store, commit = _ref2.commit;
+                commit('SET_LOADING_POST', true);
+                _context2.prev = 2;
+                _context2.next = 5;
+                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.getPost(slug);
+
+              case 5:
+                response = _context2.sent;
+                commit('SET_POST', response.data.data);
+                _context2.next = 12;
+                break;
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](2);
+                console.log(_context2.t0);
+
+              case 12:
+                commit('SET_LOADING_POST', false);
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[2, 9]]);
       }))();
     }
   }

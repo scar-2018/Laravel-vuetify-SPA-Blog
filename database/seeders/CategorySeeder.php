@@ -12,7 +12,13 @@ class CategorySeeder extends Seeder
      * @return void
      */
     public function run() {
-        $categories = ['PHP', 'Laravel', 'Vue', 'Nuxt', 'Javascript'];
+        $categories = [
+        	'Web development',
+        	'Web & Mobile Design',
+        	'Creative Writing',
+        	'Technical writing',
+        	'Machine Learning'
+        ];
 
         foreach ($categories as $category) {
             \App\Models\Category::create([
