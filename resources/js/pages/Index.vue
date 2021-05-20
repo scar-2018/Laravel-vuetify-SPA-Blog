@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-grow-1">
-    <v-row justify="center">
+    <v-row>
       <v-col cols="12" sm="8">
         <div>
           <h2>Blogs</h2>

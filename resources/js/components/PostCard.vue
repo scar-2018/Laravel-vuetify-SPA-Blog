@@ -1,11 +1,13 @@
 <template>
   <v-card
-    width="600"
+    max-width="600"
   >
-    <v-img
-      height="250"
+    <img
+      height="220"
+      width="100%"
       src="cover.jpg"
-    ></v-img>
+      style="object-fit: cover;"
+    />
     <v-chip class="ml-4 mt-4 mb-n4" label color="" dark small>
       {{ post.category.name }}
     </v-chip>

@@ -51,6 +51,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -328,9 +330,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-card",
-    { attrs: { width: "600" } },
+    { attrs: { "max-width": "600" } },
     [
-      _c("v-img", { attrs: { height: "250", src: "cover.jpg" } }),
+      _c("img", {
+        staticStyle: { "object-fit": "cover" },
+        attrs: { height: "220", width: "100%", src: "cover.jpg" }
+      }),
       _vm._v(" "),
       _c(
         "v-chip",
@@ -416,7 +421,6 @@ var render = function() {
     [
       _c(
         "v-row",
-        { attrs: { justify: "center" } },
         [
           _c("v-col", { attrs: { cols: "12", sm: "8" } }, [
             _c(

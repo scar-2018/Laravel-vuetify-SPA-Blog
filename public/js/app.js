@@ -2050,14 +2050,69 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
   data: function data() {
     return {
-      showSearch: false,
-      menuPosts: false,
-      menuCategories: false
+      visibleSearch: false
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)({
@@ -21223,179 +21278,273 @@ var render = function() {
         [
           _c(
             "div",
-            { staticClass: "d-flex flex-grow-1 container align-center" },
+            {
+              staticClass: "d-flex flex-grow-1 align-center",
+              class: { container: _vm.$vuetify.breakpoint.smAndUp }
+            },
             [
-              _c("v-toolbar-title", [_vm._v("Laravel-Vue-SPA-Blog")]),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "hidden-xs-only" },
-                [
-                  _c(
-                    "v-menu",
-                    {
-                      attrs: { "offset-y": "" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "activator",
-                          fn: function(ref) {
-                            var on = ref.on
-                            var attrs = ref.attrs
-                            return [
-                              _c(
-                                "v-btn",
-                                _vm._g(
-                                  _vm._b(
-                                    {
-                                      staticClass: "mx-2",
-                                      attrs: { color: "primary", outlined: "" }
-                                    },
-                                    "v-btn",
-                                    attrs,
-                                    false
-                                  ),
-                                  on
-                                ),
-                                [
-                                  _vm._v(
-                                    "\n              Posts\n              "
-                                  ),
-                                  _c("v-icon", { attrs: { right: "" } }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.menuPosts
-                                          ? "mdi-chevron-up"
-                                          : "mdi-chevron-down"
+              _vm.$vuetify.breakpoint.smAndUp
+                ? [
+                    _c(
+                      "v-toolbar-title",
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass:
+                              "text-decoration-none font-weight-bold",
+                            attrs: { to: "/" }
+                          },
+                          [_vm._v("Laravel-Vue-SPA-Blog")]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("v-spacer"),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      [
+                        _c(
+                          "v-menu",
+                          {
+                            attrs: {
+                              "offset-y": "",
+                              "open-on-hover": "",
+                              transition: "slide-x-transition"
+                            },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "activator",
+                                  fn: function(ref) {
+                                    var on = ref.on
+                                    var attrs = ref.attrs
+                                    return [
+                                      _c(
+                                        "span",
+                                        _vm._g(
+                                          _vm._b(
+                                            {
+                                              staticClass: "mx-2 primary--text"
+                                            },
+                                            "span",
+                                            attrs,
+                                            false
+                                          ),
+                                          on
+                                        ),
+                                        [
+                                          _vm._v(
+                                            "\n                Posts\n              "
+                                          )
+                                        ]
                                       )
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
-                            ]
-                          }
-                        }
-                      ]),
-                      model: {
-                        value: _vm.menuPosts,
-                        callback: function($$v) {
-                          _vm.menuPosts = $$v
-                        },
-                        expression: "menuPosts"
-                      }
-                    },
-                    [
-                      _vm._v(" "),
-                      _c(
-                        "v-list",
-                        [
-                          _c(
-                            "v-list-item",
-                            { attrs: { to: "/" } },
-                            [_c("v-list-item-title", [_vm._v("Latest Posts")])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-item",
-                            { attrs: { to: "/?popular=1" } },
-                            [
-                              _c("v-list-item-title", [_vm._v("Popular Posts")])
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-menu",
-                    {
-                      attrs: { "offset-y": "" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "activator",
-                          fn: function(ref) {
-                            var on = ref.on
-                            var attrs = ref.attrs
-                            return [
-                              _c(
-                                "v-btn",
-                                _vm._g(
-                                  _vm._b(
-                                    {
-                                      attrs: { color: "primary", outlined: "" }
-                                    },
-                                    "v-btn",
-                                    attrs,
-                                    false
-                                  ),
-                                  on
-                                ),
-                                [
-                                  _vm._v(
-                                    "\n              Categories\n              "
-                                  ),
-                                  _c("v-icon", { attrs: { right: "" } }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.menuCategories
-                                          ? "mdi-chevron-up"
-                                          : "mdi-chevron-down"
-                                      )
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
-                            ]
-                          }
-                        }
-                      ])
-                    },
-                    [
-                      _vm._v(" "),
-                      _vm._l(_vm.categories, function(category, i) {
-                        return _c(
-                          "v-list-item",
-                          { key: i, attrs: { to: "/" } },
+                                    ]
+                                  }
+                                }
+                              ],
+                              null,
+                              false,
+                              1168979043
+                            )
+                          },
                           [
-                            _c("v-list-item-title", [
-                              _vm._v(_vm._s(category.name))
-                            ])
+                            _vm._v(" "),
+                            _c(
+                              "v-list",
+                              { attrs: { dense: "" } },
+                              [
+                                _c(
+                                  "v-list-item",
+                                  { attrs: { to: "/" } },
+                                  [
+                                    _c("v-list-item-title", [
+                                      _vm._v("Latest Posts")
+                                    ])
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-list-item",
+                                  { attrs: { to: "/?popular=1" } },
+                                  [
+                                    _c("v-list-item-title", [
+                                      _vm._v("Popular Posts")
+                                    ])
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-menu",
+                          {
+                            attrs: {
+                              "offset-y": "",
+                              "open-on-hover": "",
+                              transition: "slide-x-transition"
+                            },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "activator",
+                                  fn: function(ref) {
+                                    var on = ref.on
+                                    var attrs = ref.attrs
+                                    return [
+                                      _c(
+                                        "span",
+                                        _vm._g(
+                                          _vm._b(
+                                            { staticClass: "primary--text" },
+                                            "span",
+                                            attrs,
+                                            false
+                                          ),
+                                          on
+                                        ),
+                                        [
+                                          _vm._v(
+                                            "\n                Categories\n              "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  }
+                                }
+                              ],
+                              null,
+                              false,
+                              2466934964
+                            )
+                          },
+                          [
+                            _vm._v(" "),
+                            _c(
+                              "v-list",
+                              { attrs: { dense: "" } },
+                              _vm._l(_vm.categories, function(category, i) {
+                                return _c(
+                                  "v-list-item",
+                                  { key: i, attrs: { to: "/" } },
+                                  [
+                                    _c("v-list-item-title", [
+                                      _vm._v(_vm._s(category.name))
+                                    ])
+                                  ],
+                                  1
+                                )
+                              }),
+                              1
+                            )
                           ],
                           1
                         )
-                      })
-                    ],
-                    2
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c("v-text-field", {
-                ref: "search",
-                staticClass: "mx-1 hidden-xs-only",
-                staticStyle: { "max-width": "300px" },
-                attrs: {
-                  placeholder: "Search",
-                  "prepend-inner-icon": "mdi-magnify",
-                  "hide-details": "",
-                  filled: "",
-                  rounded: "",
-                  dense: ""
-                }
-              })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("v-spacer"),
+                    _vm._v(" "),
+                    _c("v-text-field", {
+                      staticClass: "mx-1",
+                      staticStyle: { "max-width": "400px" },
+                      attrs: {
+                        placeholder: "Search",
+                        "prepend-inner-icon": "mdi-magnify",
+                        "hide-details": "",
+                        filled: "",
+                        rounded: "",
+                        dense: ""
+                      }
+                    })
+                  ]
+                : [
+                    _vm.visibleSearch
+                      ? _c("v-text-field", {
+                          staticClass: "mx-1 lx-auto",
+                          attrs: {
+                            placeholder: "Search",
+                            "prepend-inner-icon": "mdi-magnify",
+                            "append-icon": "mdi-close",
+                            "hide-details": "",
+                            filled: "",
+                            rounded: "",
+                            dense: ""
+                          },
+                          on: {
+                            "click:append": function($event) {
+                              _vm.visibleSearch = false
+                            }
+                          }
+                        })
+                      : [
+                          _c(
+                            "v-btn",
+                            {
+                              staticClass: "mr-1 d-flex d-sm-none",
+                              attrs: { icon: "", dark: "", color: "primary" }
+                            },
+                            [
+                              _c("v-icon", { attrs: { dark: "" } }, [
+                                _vm._v("\n              mdi-menu\n            ")
+                              ])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-toolbar-title",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass:
+                                    "text-decoration-none font-weight-bold",
+                                  attrs: { to: "/" }
+                                },
+                                [_vm._v("Laravel-Vue-SPA-Blog")]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              staticClass: "d-flex d-sm-none",
+                              attrs: { icon: "", dark: "", color: "primary" },
+                              on: {
+                                click: function($event) {
+                                  _vm.visibleSearch = true
+                                }
+                              }
+                            },
+                            [
+                              _c("v-icon", { attrs: { dark: "" } }, [
+                                _vm._v(
+                                  "\n              mdi-magnify\n            "
+                                )
+                              ])
+                            ],
+                            1
+                          )
+                        ]
+                  ]
             ],
-            1
+            2
           )
         ]
       ),
@@ -21407,7 +21556,27 @@ var render = function() {
           _c(
             "v-container",
             { staticClass: "fill-height" },
-            [_c("v-layout", [_c("router-view")], 1)],
+            [
+              _c(
+                "v-layout",
+                [
+                  _c(
+                    "v-row",
+                    { attrs: { dense: "", justify: "center" } },
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12", md: "11", lg: "8" } },
+                        [_c("router-view")],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
             1
           )
         ],
