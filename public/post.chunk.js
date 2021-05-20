@@ -39,9 +39,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('posts', ['loadingPost', 'post'])),
   mounted: function mounted() {
+    this.addVisits(this.$route.params.slug);
     this.getPost(this.$route.params.slug);
   },
-  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('posts', ['getPost']))
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('posts', ['getPost', 'addVisits']))
 });
 
 /***/ }),

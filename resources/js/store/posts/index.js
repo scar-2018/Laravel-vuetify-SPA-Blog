@@ -50,6 +50,14 @@ const posts = {
       }
 
       commit('SET_LOADING_POST', false)
+    },
+
+    async addVisits({ store, commit }, slug) {
+      try {
+        await postsApi.addVisits(slug)
+      } catch(err) {
+        console.log(err)
+      }
     }
   }
 }

@@ -139,6 +139,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -465,11 +470,11 @@ var render = function() {
                               expression: "category"
                             }
                           },
-                          _vm._l(_vm.categories, function(category, i) {
+                          _vm._l(_vm.categories, function(ct, i) {
                             return _c("v-list-item", {
                               key: i,
                               attrs: {
-                                value: category.id,
+                                value: ct.id,
                                 "active-class": "primary--text"
                               },
                               scopedSlots: _vm._u(
@@ -484,20 +489,38 @@ var render = function() {
                                           [
                                             _c("v-list-item-title", {
                                               domProps: {
-                                                textContent: _vm._s(
-                                                  category.name
-                                                )
+                                                textContent: _vm._s(ct.name)
                                               }
                                             })
                                           ],
                                           1
                                         ),
                                         _vm._v(" "),
-                                        _c("v-list-item-action", [
-                                          _c("span", [
-                                            _vm._v(_vm._s(category.posts_count))
-                                          ])
-                                        ])
+                                        _c(
+                                          "v-list-item-action",
+                                          [
+                                            _c(
+                                              "v-chip",
+                                              {
+                                                attrs: {
+                                                  "input-value": active,
+                                                  color:
+                                                    _vm.category == ct.id
+                                                      ? "primary"
+                                                      : ""
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                      " +
+                                                    _vm._s(ct.posts_count) +
+                                                    "\n                    "
+                                                )
+                                              ]
+                                            )
+                                          ],
+                                          1
+                                        )
                                       ]
                                     }
                                   }

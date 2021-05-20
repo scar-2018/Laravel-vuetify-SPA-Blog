@@ -23,18 +23,23 @@
                 v-model="category"
               >
                 <v-list-item
-                  v-for="(category, i) in categories"
+                  v-for="(ct, i) in categories"
                   :key="i"
-                  :value="category.id"
+                  :value="ct.id"
                   active-class="primary--text"
                 >
                   <template v-slot:default="{ active }">
                     <v-list-item-content>
-                      <v-list-item-title v-text="category.name"></v-list-item-title>
+                      <v-list-item-title v-text="ct.name"></v-list-item-title>
                     </v-list-item-content>
 
                     <v-list-item-action>
-                      <span>{{ category.posts_count }}</span>
+                      <v-chip
+                        :input-value="active"
+                        :color="category == ct.id ? 'primary' : ''"
+                      >
+                        {{ ct.posts_count }}
+                      </v-chip>
                     </v-list-item-action>
                   </template>
                 </v-list-item>

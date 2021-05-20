@@ -2338,6 +2338,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   getPost: function getPost(slug) {
     return axios.get("/posts/".concat(slug));
+  },
+  addVisits: function addVisits(slug) {
+    return axios.post("/posts/".concat(slug, "/add-visits"));
   }
 });
 
@@ -2576,6 +2579,35 @@ var posts = {
             }
           }
         }, _callee2, null, [[2, 9]]);
+      }))();
+    },
+    addVisits: function addVisits(_ref3, slug) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var store, commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                store = _ref3.store, commit = _ref3.commit;
+                _context3.prev = 1;
+                _context3.next = 4;
+                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.addVisits(slug);
+
+              case 4:
+                _context3.next = 9;
+                break;
+
+              case 6:
+                _context3.prev = 6;
+                _context3.t0 = _context3["catch"](1);
+                console.log(_context3.t0);
+
+              case 9:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[1, 6]]);
       }))();
     }
   }

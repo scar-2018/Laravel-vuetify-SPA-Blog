@@ -25,10 +25,11 @@
       ...mapState('posts', ['loadingPost', 'post'])
     },
     mounted() {
+      this.addVisits(this.$route.params.slug)
       this.getPost(this.$route.params.slug)
     },
     methods: {
-      ...mapActions('posts', ['getPost'])
+      ...mapActions('posts', ['getPost', 'addVisits'])
     }
   }
 </script>

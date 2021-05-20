@@ -85,4 +85,12 @@ class PostController extends Controller
     {
         //
     }
+
+    public function addVisits(Request $request, Post $post) {
+        $post->visits = $post->visits + 1;
+
+        $post->save();
+
+        return new PostResource($post);
+    }
 }
