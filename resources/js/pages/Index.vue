@@ -10,6 +10,11 @@
             :post="post"
             class="my-4"
           ></post-card>
+          <v-pagination
+            v-model="page"
+            class="my-4"
+            :length="6"
+          ></v-pagination>
         </div>
       </v-col>
       <v-col cols="12" sm="4">
@@ -25,23 +30,21 @@
                 <v-list-item
                   v-for="(ct, i) in categories"
                   :key="i"
-                  :value="ct.id"
+                  :value="ct.slug"
                   active-class="primary--text"
+                  @click="gotoPage"
                 >
-                  <template v-slot:default="{ active }">
-                    <v-list-item-content>
-                      <v-list-item-title v-text="ct.name"></v-list-item-title>
-                    </v-list-item-content>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="ct.name"></v-list-item-title>
+                  </v-list-item-content>
 
-                    <v-list-item-action>
-                      <v-chip
-                        :input-value="active"
-                        :color="category == ct.id ? 'primary' : ''"
-                      >
-                        {{ ct.posts_count }}
-                      </v-chip>
-                    </v-list-item-action>
-                  </template>
+                  <v-list-item-action>
+                    <v-chip
+                      :color="category == ct.slug ? 'primary' : ''"
+                    >
+                      {{ ct.posts_count }}
+                    </v-chip>
+                  </v-list-item-action>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
@@ -63,7 +66,12 @@
     },
     data() {
       return {
-        category: ''
+        category: '',
+        page: 1,
+        paginationOption: {
+          itemsPerPage: 7,
+          total: 1
+        }
       }
     },
     computed: {
@@ -73,12 +81,24 @@
       })
     },
     mounted() {
-      this.getPosts()
+      this.category = this.$route.query.category
+      this.getPosts(this.$route.query)
     },
     methods: {
       ...mapActions({
         getPosts: 'posts/getPosts'
-      })
+      }),
+      gotoPage() {
+        this.$nextTick(() => {
+          this.$router.push({
+            name: 'posts',
+            query: {
+              popular: this.$route.query.popular,
+              category: this.category ? this.category : ''
+            }
+          })
+        })
+      }
     }
   }
 </script>

@@ -144,6 +144,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -152,7 +155,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      category: ''
+      category: '',
+      page: 1,
+      paginationOption: {
+        itemsPerPage: 7,
+        total: 1
+      }
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)({
@@ -164,11 +172,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   })),
   mounted: function mounted() {
-    this.getPosts();
+    this.category = this.$route.query.category;
+    this.getPosts(this.$route.query);
   },
-  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
     getPosts: 'posts/getPosts'
-  }))
+  })), {}, {
+    gotoPage: function gotoPage() {
+      var _this = this;
+
+      this.$nextTick(function () {
+        _this.$router.push({
+          name: 'posts',
+          query: {
+            popular: _this.$route.query.popular,
+            category: _this.category ? _this.category : ''
+          }
+        });
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -439,6 +462,18 @@ var render = function() {
                     staticClass: "my-4",
                     attrs: { post: post }
                   })
+                }),
+                _vm._v(" "),
+                _c("v-pagination", {
+                  staticClass: "my-4",
+                  attrs: { length: 6 },
+                  model: {
+                    value: _vm.page,
+                    callback: function($$v) {
+                      _vm.page = $$v
+                    },
+                    expression: "page"
+                  }
                 })
               ],
               2
@@ -471,64 +506,54 @@ var render = function() {
                             }
                           },
                           _vm._l(_vm.categories, function(ct, i) {
-                            return _c("v-list-item", {
-                              key: i,
-                              attrs: {
-                                value: ct.id,
-                                "active-class": "primary--text"
+                            return _c(
+                              "v-list-item",
+                              {
+                                key: i,
+                                attrs: {
+                                  value: ct.slug,
+                                  "active-class": "primary--text"
+                                },
+                                on: { click: _vm.gotoPage }
                               },
-                              scopedSlots: _vm._u(
-                                [
-                                  {
-                                    key: "default",
-                                    fn: function(ref) {
-                                      var active = ref.active
-                                      return [
-                                        _c(
-                                          "v-list-item-content",
-                                          [
-                                            _c("v-list-item-title", {
-                                              domProps: {
-                                                textContent: _vm._s(ct.name)
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-list-item-action",
-                                          [
-                                            _c(
-                                              "v-chip",
-                                              {
-                                                attrs: {
-                                                  "input-value": active,
-                                                  color:
-                                                    _vm.category == ct.id
-                                                      ? "primary"
-                                                      : ""
-                                                }
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                      " +
-                                                    _vm._s(ct.posts_count) +
-                                                    "\n                    "
-                                                )
-                                              ]
-                                            )
-                                          ],
-                                          1
+                              [
+                                _c(
+                                  "v-list-item-content",
+                                  [
+                                    _c("v-list-item-title", {
+                                      domProps: { textContent: _vm._s(ct.name) }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-list-item-action",
+                                  [
+                                    _c(
+                                      "v-chip",
+                                      {
+                                        attrs: {
+                                          color:
+                                            _vm.category == ct.slug
+                                              ? "primary"
+                                              : ""
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(ct.posts_count) +
+                                            "\n                  "
                                         )
                                       ]
-                                    }
-                                  }
-                                ],
-                                null,
-                                true
-                              )
-                            })
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
                           }),
                           1
                         )

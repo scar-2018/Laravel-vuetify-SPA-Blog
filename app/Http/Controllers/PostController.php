@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
 use App\Http\Resources\PostResource;
 
 class PostController extends Controller
@@ -13,9 +14,20 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('created_at')->get();
+        if (request('popular') == 1)
+            $posts = Post::orderBy('visits', 'DESC');
+        else
+            $posts = Post::orderBy('visits');
+
+        if (request('category')) {
+            $posts = $posts->where('category_id', function($query) {
+                $query->select('id')->from('categories')->where('slug', request('category'))->limit(1);
+            });
+        }
+
+        $posts = $posts->paginate(7);
 
         return PostResource::collection($posts);
     }

@@ -126,7 +126,7 @@
         <v-layout>
           <v-row dense justify="center">
             <v-col cols="12" md="11" lg="8">
-              <router-view></router-view>
+              <router-view :key="$route.fullPath"></router-view>
             </v-col>
           </v-row>
         </v-layout>

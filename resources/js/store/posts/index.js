@@ -24,11 +24,11 @@ const posts = {
     }
   },
   actions : {
-    async getPosts({ store, commit }) {
+    async getPosts({ store, commit }, query) {
       commit('SET_LOADING_POSTS', true)
       
       try {
-        const response = await postsApi.getPosts()
+        const response = await postsApi.getPosts(query)
 
         commit('SET_POSTS', response.data.data)
       } catch(err) {
