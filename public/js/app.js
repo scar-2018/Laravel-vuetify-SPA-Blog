@@ -2321,6 +2321,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/services/api/comments.js":
+/*!***********************************************!*\
+  !*** ./resources/js/services/api/comments.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  getComments: function getComments(post) {
+    return axios.get("/comments/".concat(post));
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/services/api/posts.js":
 /*!********************************************!*\
   !*** ./resources/js/services/api/posts.js ***!
@@ -2439,18 +2458,78 @@ var categories = {
         }, _callee, null, [[2, 9]]);
       }))();
     }
-  },
-  getters: {
-    categoryById: function categoryById(state) {
-      return function (id) {
-        return state.categories.find(function (category) {
-          return category.id == id;
-        });
-      };
-    }
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (categories);
+
+/***/ }),
+
+/***/ "./resources/js/store/comments/index.js":
+/*!**********************************************!*\
+  !*** ./resources/js/store/comments/index.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_api_comments__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/api/comments */ "./resources/js/services/api/comments.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var comments = {
+  namespaced: true,
+  state: {
+    comments: []
+  },
+  mutations: {
+    SET_COMMENTS: function SET_COMMENTS(state, comments) {
+      state.comments = comments;
+    }
+  },
+  actions: {
+    getComments: function getComments(_ref, post) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var store, commit, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                store = _ref.store, commit = _ref.commit;
+                _context.prev = 1;
+                _context.next = 4;
+                return _services_api_comments__WEBPACK_IMPORTED_MODULE_1__.default.getComments(post);
+
+              case 4:
+                response = _context.sent;
+                commit('SET_COMMENTS', response.data.data);
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](1);
+                console.log(_context.t0);
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 8]]);
+      }))();
+    }
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (comments);
 
 /***/ }),
 
@@ -2465,24 +2544,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _categories__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./categories */ "./resources/js/store/categories/index.js");
 /* harmony import */ var _posts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./posts */ "./resources/js/store/posts/index.js");
+/* harmony import */ var _comments__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./comments */ "./resources/js/store/comments/index.js");
 
  // Global vuex
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
+
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vuex__WEBPACK_IMPORTED_MODULE_4__.default);
 /**
  * Main Vuex Store
  */
 
-var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
+var store = new vuex__WEBPACK_IMPORTED_MODULE_4__.default.Store({
   modules: {
     categories: _categories__WEBPACK_IMPORTED_MODULE_0__.default,
-    posts: _posts__WEBPACK_IMPORTED_MODULE_1__.default
+    posts: _posts__WEBPACK_IMPORTED_MODULE_1__.default,
+    comments: _comments__WEBPACK_IMPORTED_MODULE_2__.default
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);

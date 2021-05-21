@@ -14,7 +14,7 @@
     <v-card-title>{{ post.title }}</v-card-title>
     <v-card-subtitle>{{ post.ago }}</v-card-subtitle>
     <v-card-text>
-      {{ post.content }}
+      <div v-html="post.description"></div>
     </v-card-text>
     <v-card-actions>
       <v-list-item class="grow">

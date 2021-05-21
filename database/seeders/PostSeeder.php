@@ -23,7 +23,7 @@ class PostSeeder extends Seeder {
             $post = $category->posts()->create([
                 'title' => $title,
                 'slug' => \Illuminate\Support\Str::slug($title),
-                'content' => $faker->text(),
+                'content' => $faker->paragraph(20),
                 'user_id' => User::find(random_int(1, 20))->id,
                 'online' => true,
                 'cover' => 'cover.jpg',

@@ -378,7 +378,9 @@ var render = function() {
       _vm._v(" "),
       _c("v-card-subtitle", [_vm._v(_vm._s(_vm.post.ago))]),
       _vm._v(" "),
-      _c("v-card-text", [_vm._v("\n    " + _vm._s(_vm.post.content) + "\n  ")]),
+      _c("v-card-text", [
+        _c("div", { domProps: { innerHTML: _vm._s(_vm.post.description) } })
+      ]),
       _vm._v(" "),
       _c(
         "v-card-actions",
