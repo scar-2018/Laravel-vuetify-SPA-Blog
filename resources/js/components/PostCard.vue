@@ -1,6 +1,5 @@
 <template>
   <v-card
-    max-width="600"
   >
     <img
       height="220"

@@ -31,11 +31,14 @@ const posts = {
         const response = await postsApi.getPosts(query)
 
         commit('SET_POSTS', response.data.data)
+        commit('SET_LOADING_POSTS', false)
+        
+        return response
       } catch(err) {
         console.log(err)
+      } finally {
+        commit('SET_LOADING_POSTS', false)
       }
-
-      commit('SET_LOADING_POSTS', false)
     },
 
     async getPost({ store, commit }, slug) {

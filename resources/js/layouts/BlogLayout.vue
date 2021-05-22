@@ -13,54 +13,6 @@
 
           <v-spacer></v-spacer>
 
-          <div>
-            <v-menu
-              offset-y
-              open-on-hover
-              transition="slide-x-transition"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <span
-                  v-bind="attrs"
-                  v-on="on"
-                  class="mx-2 primary--text"
-                >
-                  Posts
-                </span>
-              </template>
-              <v-list dense>
-                <v-list-item to="/">
-                  <v-list-item-title>Latest Posts</v-list-item-title>
-                </v-list-item>
-                <v-list-item to="/?popular=1">
-                  <v-list-item-title>Popular Posts</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-            <v-menu
-              offset-y
-              open-on-hover
-              transition="slide-x-transition"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <span
-                  v-bind="attrs"
-                  v-on="on"
-                  class="primary--text"
-                >
-                  Categories
-                </span>
-              </template>
-              <v-list dense>
-                <v-list-item to="/" v-for="(category, i) in categories" :key="i">
-                  <v-list-item-title>{{ category.name }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </div>
-
-          <v-spacer></v-spacer>
-
           <v-text-field
             class="mx-1"
             style="max-width: 400px;"

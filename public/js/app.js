@@ -2059,54 +2059,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
@@ -2335,6 +2287,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   getComments: function getComments(post) {
     return axios.get("/comments/".concat(post));
+  },
+  submitComment: function submitComment(data) {
+    return axios.post("/comments/".concat(data.postSlug), data);
   }
 });
 
@@ -2488,11 +2443,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var comments = {
   namespaced: true,
   state: {
+    submittingComment: false,
     comments: []
   },
   mutations: {
     SET_COMMENTS: function SET_COMMENTS(state, comments) {
       state.comments = comments;
+    },
+    SET_SUBMITTING: function SET_SUBMITTING(state, submittingComment) {
+      state.submittingComment = submittingComment;
     }
   },
   actions: {
@@ -2525,6 +2484,39 @@ var comments = {
             }
           }
         }, _callee, null, [[1, 8]]);
+      }))();
+    },
+    submitComment: function submitComment(_ref2, commentForm) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var store, commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                store = _ref2.store, commit = _ref2.commit;
+                commit('SET_SUBMITTING', true);
+                _context2.prev = 2;
+                _context2.next = 5;
+                return _services_api_comments__WEBPACK_IMPORTED_MODULE_1__.default.submitComment(commentForm);
+
+              case 5:
+                _context2.next = 10;
+                break;
+
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2["catch"](2);
+                console.log(_context2.t0);
+
+              case 10:
+                commit('SET_SUBMITTING', false);
+
+              case 11:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[2, 7]]);
       }))();
     }
   }
@@ -2631,23 +2623,25 @@ var posts = {
               case 5:
                 response = _context.sent;
                 commit('SET_POSTS', response.data.data);
-                _context.next = 12;
-                break;
+                commit('SET_LOADING_POSTS', false);
+                return _context.abrupt("return", response);
 
-              case 9:
-                _context.prev = 9;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context["catch"](2);
                 console.log(_context.t0);
 
-              case 12:
+              case 14:
+                _context.prev = 14;
                 commit('SET_LOADING_POSTS', false);
+                return _context.finish(14);
 
-              case 13:
+              case 17:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 9]]);
+        }, _callee, null, [[2, 11, 14, 17]]);
       }))();
     },
     getPost: function getPost(_ref2, slug) {
@@ -21432,157 +21426,6 @@ var render = function() {
                             attrs: { to: "/" }
                           },
                           [_vm._v("Laravel-Vue-SPA-Blog")]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("v-spacer"),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      [
-                        _c(
-                          "v-menu",
-                          {
-                            attrs: {
-                              "offset-y": "",
-                              "open-on-hover": "",
-                              transition: "slide-x-transition"
-                            },
-                            scopedSlots: _vm._u(
-                              [
-                                {
-                                  key: "activator",
-                                  fn: function(ref) {
-                                    var on = ref.on
-                                    var attrs = ref.attrs
-                                    return [
-                                      _c(
-                                        "span",
-                                        _vm._g(
-                                          _vm._b(
-                                            {
-                                              staticClass: "mx-2 primary--text"
-                                            },
-                                            "span",
-                                            attrs,
-                                            false
-                                          ),
-                                          on
-                                        ),
-                                        [
-                                          _vm._v(
-                                            "\n                Posts\n              "
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  }
-                                }
-                              ],
-                              null,
-                              false,
-                              1168979043
-                            )
-                          },
-                          [
-                            _vm._v(" "),
-                            _c(
-                              "v-list",
-                              { attrs: { dense: "" } },
-                              [
-                                _c(
-                                  "v-list-item",
-                                  { attrs: { to: "/" } },
-                                  [
-                                    _c("v-list-item-title", [
-                                      _vm._v("Latest Posts")
-                                    ])
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "v-list-item",
-                                  { attrs: { to: "/?popular=1" } },
-                                  [
-                                    _c("v-list-item-title", [
-                                      _vm._v("Popular Posts")
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-menu",
-                          {
-                            attrs: {
-                              "offset-y": "",
-                              "open-on-hover": "",
-                              transition: "slide-x-transition"
-                            },
-                            scopedSlots: _vm._u(
-                              [
-                                {
-                                  key: "activator",
-                                  fn: function(ref) {
-                                    var on = ref.on
-                                    var attrs = ref.attrs
-                                    return [
-                                      _c(
-                                        "span",
-                                        _vm._g(
-                                          _vm._b(
-                                            { staticClass: "primary--text" },
-                                            "span",
-                                            attrs,
-                                            false
-                                          ),
-                                          on
-                                        ),
-                                        [
-                                          _vm._v(
-                                            "\n                Categories\n              "
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  }
-                                }
-                              ],
-                              null,
-                              false,
-                              2466934964
-                            )
-                          },
-                          [
-                            _vm._v(" "),
-                            _c(
-                              "v-list",
-                              { attrs: { dense: "" } },
-                              _vm._l(_vm.categories, function(category, i) {
-                                return _c(
-                                  "v-list-item",
-                                  { key: i, attrs: { to: "/" } },
-                                  [
-                                    _c("v-list-item-title", [
-                                      _vm._v(_vm._s(category.name))
-                                    ])
-                                  ],
-                                  1
-                                )
-                              }),
-                              1
-                            )
-                          ],
-                          1
                         )
                       ],
                       1

@@ -16,10 +16,14 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        if (request('popular') == 1)
+        $sort = strtolower(request('sortBy'));
+        
+        if ($sort == 'latest')
+            $posts = Post::latest();
+        else if ($sort == 'popular')
             $posts = Post::orderBy('visits', 'DESC');
         else
-            $posts = Post::orderBy('visits');
+            $posts = Post::orderBy('title');
 
         if (request('category')) {
             $posts = $posts->where('category_id', function($query) {

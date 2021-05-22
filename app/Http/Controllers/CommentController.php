@@ -36,9 +36,21 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Post $post)
     {
-        //
+        $data  = request()->validate([
+            "name" => "required|min:1",
+            "email" => "required|email",
+            "comment"       => "required|min:2"
+        ]);
+
+        $comment = $post->comments()->create([
+            'author_name' => $data['name'],
+            'author_email' => $data['email'],
+            'content' => $data['comment']
+        ]);
+
+        return new CommentResource($comment);
     }
 
     /**

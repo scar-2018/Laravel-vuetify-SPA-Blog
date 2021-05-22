@@ -25,3 +25,4 @@ Route::apiResource('categories', CategoryController::class);
 Route::post('posts/{post}/add-visits', [PostController::class, 'addVisits']);
 Route::apiResource('posts', PostController::class);
 Route::get('comments/{post:slug}', [CommentController::class, 'index']);
+Route::post('comments/{post:slug}', [CommentController::class, 'store']);
