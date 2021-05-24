@@ -1,7 +1,12 @@
 {
     "/js/app.js": "/js/app.js",
-    "/index.chunk.js": "/index.chunk.js",
-    "/css/app.css": "/css/app.css",
     "/posts.chunk.js": "/posts.chunk.js",
-    "/post.chunk.js": "/post.chunk.js"
+    "/post.chunk.js": "/post.chunk.js",
+    "/css/app.css": "/css/app.css",
+    "/dashboard.chunk.js": "/dashboard.chunk.js",
+    "/admin-dashboard.chunk.js": "/admin-dashboard.chunk.js",
+    "/admin-categories.chunk.js": "/admin-categories.chunk.js",
+    "/admin-posts.chunk.js": "/admin-posts.chunk.js",
+    "/admin-comments.chunk.js": "/admin-comments.chunk.js",
+    "/admin-tags.chunk.js": "/admin-tags.chunk.js"
 }
