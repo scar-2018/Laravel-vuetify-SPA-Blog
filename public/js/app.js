@@ -1969,13 +1969,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mounted: function mounted() {}
+  data: function data() {
+    return {};
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('app', ['toast'])),
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('app', ['hideNotification']))
 });
 
 /***/ }),
@@ -2428,6 +2461,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   getCategories: function getCategories() {
     return axios.get('/categories');
+  },
+  updateCategory: function updateCategory(data) {
+    return axios.put("/categories/".concat(data.id), data);
+  },
+  deleteCategory: function deleteCategory(id) {
+    return axios["delete"]("/categories/".concat(id));
+  },
+  createCategory: function createCategory(data) {
+    return axios.post('/categories', data);
   }
 });
 
@@ -2502,6 +2544,74 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
+/***/ "./resources/js/store/app/index.js":
+/*!*****************************************!*\
+  !*** ./resources/js/store/app/index.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var comments = {
+  namespaced: true,
+  state: {
+    toast: {
+      show: false,
+      type: 'success',
+      message: null
+    }
+  },
+  mutations: {
+    SET_VISIBILITY: function SET_VISIBILITY(state, visible) {
+      state.toast.show = visible;
+    },
+    SET_TYPE: function SET_TYPE(state, type) {
+      state.toast.type = type;
+    },
+    SET_MESSAGE: function SET_MESSAGE(state, message) {
+      if (typeof message == 'string') state.toast.message = message;else if (_typeof(message) == 'object') {
+        var result = Object.keys(message).reduce(function (r, k) {
+          return r.concat(message[k]);
+        }, []);
+        state.toast.message = result[0];
+      } else {
+        state.message = '';
+      }
+    }
+  },
+  actions: {
+    showSuccess: function showSuccess(_ref, message) {
+      var state = _ref.state,
+          commit = _ref.commit;
+      if (state.toast.show) commit('SET_VISIBILITY', false);
+      commit('SET_VISIBILITY', true);
+      commit('SET_TYPE', 'success');
+      commit('SET_MESSAGE', message);
+    },
+    showError: function showError(_ref2, message) {
+      var state = _ref2.state,
+          commit = _ref2.commit;
+      if (state.toast.show) commit('SET_VISIBILITY', false);
+      commit('SET_VISIBILITY', true);
+      commit('SET_TYPE', 'error');
+      commit('SET_MESSAGE', message);
+    },
+    hideNotification: function hideNotification(_ref3) {
+      var store = _ref3.store,
+          commit = _ref3.commit;
+      commit('SET_VISIBILITY', false);
+    }
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (comments);
+
+/***/ }),
+
 /***/ "./resources/js/store/categories/index.js":
 /*!************************************************!*\
   !*** ./resources/js/store/categories/index.js ***!
@@ -2527,11 +2637,15 @@ var categories = {
   namespaced: true,
   state: {
     loadingCategories: false,
+    submittingCategory: false,
     categories: []
   },
   mutations: {
     SET_LOADING_CATEGORIES: function SET_LOADING_CATEGORIES(state, loading) {
       state.loadingCategories = loading;
+    },
+    SET_SUBMITTING_CATEGORY: function SET_SUBMITTING_CATEGORY(state, loading) {
+      state.submittingCategory = loading;
     },
     SET_CATEGORIES: function SET_CATEGORIES(state, categories) {
       state.categories = categories;
@@ -2571,6 +2685,107 @@ var categories = {
             }
           }
         }, _callee, null, [[2, 9]]);
+      }))();
+    },
+    createCategory: function createCategory(_ref2, data) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var store, commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                store = _ref2.store, commit = _ref2.commit;
+                commit('SET_SUBMITTING_CATEGORY', true);
+                _context2.prev = 2;
+                _context2.next = 5;
+                return _services_api_categories__WEBPACK_IMPORTED_MODULE_1__.default.createCategory(data);
+
+              case 5:
+                _context2.next = 10;
+                break;
+
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2["catch"](2);
+                throw _context2.t0.response.data;
+
+              case 10:
+                _context2.prev = 10;
+                commit('SET_SUBMITTING_CATEGORY', false);
+                return _context2.finish(10);
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[2, 7, 10, 13]]);
+      }))();
+    },
+    updateCategory: function updateCategory(_ref3, data) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var store, commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                store = _ref3.store, commit = _ref3.commit;
+                commit('SET_SUBMITTING_CATEGORY', true);
+                _context3.prev = 2;
+                _context3.next = 5;
+                return _services_api_categories__WEBPACK_IMPORTED_MODULE_1__.default.updateCategory(data);
+
+              case 5:
+                _context3.next = 10;
+                break;
+
+              case 7:
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](2);
+                console.log(_context3.t0);
+
+              case 10:
+                commit('SET_SUBMITTING_CATEGORY', false);
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[2, 7]]);
+      }))();
+    },
+    deleteCategory: function deleteCategory(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var store, commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                store = _ref4.store, commit = _ref4.commit;
+                commit('SET_SUBMITTING_CATEGORY', true);
+                _context4.prev = 2;
+                _context4.next = 5;
+                return _services_api_categories__WEBPACK_IMPORTED_MODULE_1__.default.deleteCategory(id);
+
+              case 5:
+                _context4.next = 10;
+                break;
+
+              case 7:
+                _context4.prev = 7;
+                _context4.t0 = _context4["catch"](2);
+                throw _context4.t0.response.data;
+
+              case 10:
+                commit('SET_SUBMITTING_CATEGORY', false);
+
+              case 11:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[2, 7]]);
       }))();
     }
   }
@@ -2696,27 +2911,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _categories__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./categories */ "./resources/js/store/categories/index.js");
-/* harmony import */ var _posts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./posts */ "./resources/js/store/posts/index.js");
-/* harmony import */ var _comments__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./comments */ "./resources/js/store/comments/index.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app */ "./resources/js/store/app/index.js");
+/* harmony import */ var _categories__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./categories */ "./resources/js/store/categories/index.js");
+/* harmony import */ var _posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./posts */ "./resources/js/store/posts/index.js");
+/* harmony import */ var _comments__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./comments */ "./resources/js/store/comments/index.js");
 
  // Global vuex
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vuex__WEBPACK_IMPORTED_MODULE_4__.default);
+
+vue__WEBPACK_IMPORTED_MODULE_4__.default.use(vuex__WEBPACK_IMPORTED_MODULE_5__.default);
 /**
  * Main Vuex Store
  */
 
-var store = new vuex__WEBPACK_IMPORTED_MODULE_4__.default.Store({
+var store = new vuex__WEBPACK_IMPORTED_MODULE_5__.default.Store({
   modules: {
-    categories: _categories__WEBPACK_IMPORTED_MODULE_0__.default,
-    posts: _posts__WEBPACK_IMPORTED_MODULE_1__.default,
-    comments: _comments__WEBPACK_IMPORTED_MODULE_2__.default
+    app: _app__WEBPACK_IMPORTED_MODULE_0__.default,
+    categories: _categories__WEBPACK_IMPORTED_MODULE_1__.default,
+    posts: _posts__WEBPACK_IMPORTED_MODULE_2__.default,
+    comments: _comments__WEBPACK_IMPORTED_MODULE_3__.default
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
@@ -21643,7 +21861,64 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    [
+      _c(
+        "v-snackbar",
+        {
+          attrs: {
+            timeout: 3000,
+            top: "",
+            centered: "",
+            color: _vm.toast.type == "success" ? "green" : "error",
+            elevation: "24"
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function(ref) {
+                var attrs = ref.attrs
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._b(
+                      {
+                        attrs: { icon: "" },
+                        on: {
+                          click: function($event) {
+                            _vm.toast.show = false
+                          }
+                        }
+                      },
+                      "v-btn",
+                      attrs,
+                      false
+                    ),
+                    [_c("v-icon", [_vm._v("mdi-close")])],
+                    1
+                  )
+                ]
+              }
+            }
+          ]),
+          model: {
+            value: _vm.toast.show,
+            callback: function($$v) {
+              _vm.$set(_vm.toast, "show", $$v)
+            },
+            expression: "toast.show"
+          }
+        },
+        [
+          _c("div", { staticClass: "d-flex align-center" }, [
+            _c("span", [_vm._v(_vm._s(_vm.toast.message))])
+          ])
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

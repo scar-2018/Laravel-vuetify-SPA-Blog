@@ -2,8 +2,8 @@
     <v-card width="100%">
       <v-data-table
         :headers="headers"
-        :items="desserts"
-        sort-by="calories"
+        :items="categories"
+        :loading="loadingCategories"
       >
         <template v-slot:top>
           <v-toolbar
@@ -34,74 +34,28 @@
 
                 <v-card-text>
                   <v-container>
-                    <v-row>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.name"
-                          label="Dessert name"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.calories"
-                          label="Calories"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.fat"
-                          label="Fat (g)"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.carbs"
-                          label="Carbs (g)"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-text-field
-                          v-model="editedItem.protein"
-                          label="Protein (g)"
-                        ></v-text-field>
-                      </v-col>
-                    </v-row>
+                    <v-text-field
+                      v-model="editedItem.name"
+                      outlined
+                      dense
+                      placeholder="Category name"
+                    ></v-text-field>
                   </v-container>
                 </v-card-text>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn
-                    color="blue darken-1"
+                    color="primary"
                     text
                     @click="close"
                   >
                     Cancel
                   </v-btn>
                   <v-btn
-                    color="blue darken-1"
-                    text
+                    color="primary"
                     @click="save"
+                    :loading="submittingCategory"
                   >
                     Save
                   </v-btn>
@@ -113,8 +67,8 @@
                 <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                  <v-btn color="primary" text @click="closeDelete">Cancel</v-btn>
+                  <v-btn color="primary" @click="deleteItemConfirm" :loading="submittingCategory">OK</v-btn>
                   <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
@@ -122,71 +76,47 @@
           </v-toolbar>
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-icon
-            small
-            class="mr-2"
-            @click="editItem(item)"
-          >
-            mdi-pencil
-          </v-icon>
-          <v-icon
-            small
-            @click="deleteItem(item)"
-          >
-            mdi-delete
-          </v-icon>
-        </template>
-        <template v-slot:no-data>
-          <v-btn
-            color="primary"
-            @click="initialize"
-          >
-            Reset
+          <v-btn icon class="mr-2" @click="editItem(item)">
+            <v-icon small>
+              mdi-pencil
+            </v-icon>
+          </v-btn>
+          <v-btn icon class="" @click="deleteItem(item)">
+            <v-icon small>
+              mdi-delete
+            </v-icon>
           </v-btn>
         </template>
       </v-data-table>
     </v-card>
 </template>
 <script>
+  import { mapState, mapActions } from 'vuex'
+
   export default {
     data() {
       return {
         dialog: false,
         dialogDelete: false,
         headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
+          { text: 'Name', value: 'name'},
+          { text: 'Slug', value: 'slug' },
           { text: 'Actions', value: 'actions', sortable: false },
         ],
-        desserts: [],
         editedIndex: -1,
         editedItem: {
-          name: '',
-          calories: 0,
-          fat: 0,
-          carbs: 0,
-          protein: 0,
+          name: ''
         },
         defaultItem: {
-          name: '',
-          calories: 0,
-          fat: 0,
-          carbs: 0,
-          protein: 0,
+          name: ''
         },
       }
     },
     computed: {
+      ...mapState('categories', ['loadingCategories', 'submittingCategory', 'categories']),
+
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? 'New Category' : 'Edit Category'
       },
     },
 
@@ -198,22 +128,34 @@
         val || this.closeDelete()
       },
     },
+    mounted() {
+      this.getCategories()
+    },
     methods: {
+      ...mapActions('app', ['showSuccess', 'showError']),
+      ...mapActions('categories', ['getCategories', 'updateCategory', 'deleteCategory', 'createCategory']),
+
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.categories.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = item.id
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
-      deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
-        this.closeDelete()
+      async deleteItemConfirm () {
+        try {
+          await this.deleteCategory(this.editedIndex)
+          this.closeDelete()
+          this.showSuccess('Successfully Deleted')
+          this.getCategories()
+        } catch (err) {
+          this.showError(err)
+        }
       },
 
       close () {
@@ -232,13 +174,19 @@
         })
       },
 
-      save () {
+      async save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          // Object.assign(this.desserts[this.editedIndex], this.editedItem)
         } else {
-          this.desserts.push(this.editedItem)
+          try {
+            await this.createCategory(this.editedItem)
+            this.close()
+            this.showSuccess('Successfully Created')
+            this.getCategories()
+          } catch (err) {
+            this.showError(err)
+          }
         }
-        this.close()
       },
     }
   }

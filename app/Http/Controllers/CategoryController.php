@@ -38,7 +38,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data  = request()->validate([
+            "name" => "required|unique:categories"
+        ]);
+
+        $category = Category::create([
+            'name' => $data['name'],
+            'slug' => \Illuminate\Support\Str::slug($data['name'])
+        ]);
+
+        return response()->json(compact('category'));
     }
 
     /**
@@ -70,9 +79,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        
     }
 
     /**
@@ -81,8 +90,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return response()->json('Successfully deleted');
     }
 }

@@ -11,6 +11,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -103,113 +118,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       dialog: false,
       dialogDelete: false,
       headers: [{
-        text: 'Dessert (100g serving)',
-        align: 'start',
-        sortable: false,
+        text: 'Name',
         value: 'name'
       }, {
-        text: 'Calories',
-        value: 'calories'
-      }, {
-        text: 'Fat (g)',
-        value: 'fat'
-      }, {
-        text: 'Carbs (g)',
-        value: 'carbs'
-      }, {
-        text: 'Protein (g)',
-        value: 'protein'
+        text: 'Slug',
+        value: 'slug'
       }, {
         text: 'Actions',
         value: 'actions',
         sortable: false
       }],
-      desserts: [],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
+        name: ''
       },
       defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
+        name: ''
       }
     };
   },
-  computed: {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('categories', ['loadingCategories', 'submittingCategory', 'categories'])), {}, {
     formTitle: function formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
+      return this.editedIndex === -1 ? 'New Category' : 'Edit Category';
     }
-  },
+  }),
   watch: {
     dialog: function dialog(val) {
       val || this.close();
@@ -218,49 +157,120 @@ __webpack_require__.r(__webpack_exports__);
       val || this.closeDelete();
     }
   },
-  methods: {
+  mounted: function mounted() {
+    this.getCategories();
+  },
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('app', ['showSuccess', 'showError'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('categories', ['getCategories', 'updateCategory', 'deleteCategory', 'createCategory'])), {}, {
     editItem: function editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.categories.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = item.id;
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
     deleteItemConfirm: function deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
-    close: function close() {
       var _this = this;
 
-      this.dialog = false;
-      this.$nextTick(function () {
-        _this.editedItem = Object.assign({}, _this.defaultItem);
-        _this.editedIndex = -1;
-      });
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return _this.deleteCategory(_this.editedIndex);
+
+              case 3:
+                _this.closeDelete();
+
+                _this.showSuccess('Successfully Deleted');
+
+                _this.getCategories();
+
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+
+                _this.showError(_context.t0);
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 8]]);
+      }))();
     },
-    closeDelete: function closeDelete() {
+    close: function close() {
       var _this2 = this;
 
-      this.dialogDelete = false;
+      this.dialog = false;
       this.$nextTick(function () {
         _this2.editedItem = Object.assign({}, _this2.defaultItem);
         _this2.editedIndex = -1;
       });
     },
-    save: function save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
-      }
+    closeDelete: function closeDelete() {
+      var _this3 = this;
 
-      this.close();
+      this.dialogDelete = false;
+      this.$nextTick(function () {
+        _this3.editedItem = Object.assign({}, _this3.defaultItem);
+        _this3.editedIndex = -1;
+      });
+    },
+    save: function save() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(_this4.editedIndex > -1)) {
+                  _context2.next = 3;
+                  break;
+                }
+
+                _context2.next = 14;
+                break;
+
+              case 3:
+                _context2.prev = 3;
+                _context2.next = 6;
+                return _this4.createCategory(_this4.editedItem);
+
+              case 6:
+                _this4.close();
+
+                _this4.showSuccess('Successfully Created');
+
+                _this4.getCategories();
+
+                _context2.next = 14;
+                break;
+
+              case 11:
+                _context2.prev = 11;
+                _context2.t0 = _context2["catch"](3);
+
+                _this4.showError(_context2.t0);
+
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[3, 11]]);
+      }))();
     }
-  }
+  })
 });
 
 /***/ }),
@@ -360,8 +370,8 @@ var render = function() {
       _c("v-data-table", {
         attrs: {
           headers: _vm.headers,
-          items: _vm.desserts,
-          "sort-by": "calories"
+          items: _vm.categories,
+          loading: _vm.loadingCategories
         },
         scopedSlots: _vm._u([
           {
@@ -440,152 +450,20 @@ var render = function() {
                                 _c(
                                   "v-container",
                                   [
-                                    _c(
-                                      "v-row",
-                                      [
-                                        _c(
-                                          "v-col",
-                                          {
-                                            attrs: {
-                                              cols: "12",
-                                              sm: "6",
-                                              md: "4"
-                                            }
-                                          },
-                                          [
-                                            _c("v-text-field", {
-                                              attrs: { label: "Dessert name" },
-                                              model: {
-                                                value: _vm.editedItem.name,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.editedItem,
-                                                    "name",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression: "editedItem.name"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          {
-                                            attrs: {
-                                              cols: "12",
-                                              sm: "6",
-                                              md: "4"
-                                            }
-                                          },
-                                          [
-                                            _c("v-text-field", {
-                                              attrs: { label: "Calories" },
-                                              model: {
-                                                value: _vm.editedItem.calories,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.editedItem,
-                                                    "calories",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression:
-                                                  "editedItem.calories"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          {
-                                            attrs: {
-                                              cols: "12",
-                                              sm: "6",
-                                              md: "4"
-                                            }
-                                          },
-                                          [
-                                            _c("v-text-field", {
-                                              attrs: { label: "Fat (g)" },
-                                              model: {
-                                                value: _vm.editedItem.fat,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.editedItem,
-                                                    "fat",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression: "editedItem.fat"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          {
-                                            attrs: {
-                                              cols: "12",
-                                              sm: "6",
-                                              md: "4"
-                                            }
-                                          },
-                                          [
-                                            _c("v-text-field", {
-                                              attrs: { label: "Carbs (g)" },
-                                              model: {
-                                                value: _vm.editedItem.carbs,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.editedItem,
-                                                    "carbs",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression: "editedItem.carbs"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          {
-                                            attrs: {
-                                              cols: "12",
-                                              sm: "6",
-                                              md: "4"
-                                            }
-                                          },
-                                          [
-                                            _c("v-text-field", {
-                                              attrs: { label: "Protein (g)" },
-                                              model: {
-                                                value: _vm.editedItem.protein,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.editedItem,
-                                                    "protein",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression: "editedItem.protein"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        )
-                                      ],
-                                      1
-                                    )
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        outlined: "",
+                                        dense: "",
+                                        placeholder: "Category name"
+                                      },
+                                      model: {
+                                        value: _vm.editedItem.name,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.editedItem, "name", $$v)
+                                        },
+                                        expression: "editedItem.name"
+                                      }
+                                    })
                                   ],
                                   1
                                 )
@@ -601,7 +479,7 @@ var render = function() {
                                 _c(
                                   "v-btn",
                                   {
-                                    attrs: { color: "blue darken-1", text: "" },
+                                    attrs: { color: "primary", text: "" },
                                     on: { click: _vm.close }
                                   },
                                   [
@@ -614,7 +492,10 @@ var render = function() {
                                 _c(
                                   "v-btn",
                                   {
-                                    attrs: { color: "blue darken-1", text: "" },
+                                    attrs: {
+                                      color: "primary",
+                                      loading: _vm.submittingCategory
+                                    },
                                     on: { click: _vm.save }
                                   },
                                   [
@@ -663,7 +544,7 @@ var render = function() {
                                 _c(
                                   "v-btn",
                                   {
-                                    attrs: { color: "blue darken-1", text: "" },
+                                    attrs: { color: "primary", text: "" },
                                     on: { click: _vm.closeDelete }
                                   },
                                   [_vm._v("Cancel")]
@@ -672,7 +553,10 @@ var render = function() {
                                 _c(
                                   "v-btn",
                                   {
-                                    attrs: { color: "blue darken-1", text: "" },
+                                    attrs: {
+                                      color: "primary",
+                                      loading: _vm.submittingCategory
+                                    },
                                     on: { click: _vm.deleteItemConfirm }
                                   },
                                   [_vm._v("OK")]
@@ -701,49 +585,43 @@ var render = function() {
               var item = ref.item
               return [
                 _c(
-                  "v-icon",
+                  "v-btn",
                   {
                     staticClass: "mr-2",
-                    attrs: { small: "" },
+                    attrs: { icon: "" },
                     on: {
                       click: function($event) {
                         return _vm.editItem(item)
                       }
                     }
                   },
-                  [_vm._v("\n        mdi-pencil\n      ")]
+                  [
+                    _c("v-icon", { attrs: { small: "" } }, [
+                      _vm._v("\n          mdi-pencil\n        ")
+                    ])
+                  ],
+                  1
                 ),
                 _vm._v(" "),
                 _c(
-                  "v-icon",
+                  "v-btn",
                   {
-                    attrs: { small: "" },
+                    attrs: { icon: "" },
                     on: {
                       click: function($event) {
                         return _vm.deleteItem(item)
                       }
                     }
                   },
-                  [_vm._v("\n        mdi-delete\n      ")]
+                  [
+                    _c("v-icon", { attrs: { small: "" } }, [
+                      _vm._v("\n          mdi-delete\n        ")
+                    ])
+                  ],
+                  1
                 )
               ]
             }
-          },
-          {
-            key: "no-data",
-            fn: function() {
-              return [
-                _c(
-                  "v-btn",
-                  {
-                    attrs: { color: "primary" },
-                    on: { click: _vm.initialize }
-                  },
-                  [_vm._v("\n        Reset\n      ")]
-                )
-              ]
-            },
-            proxy: true
           }
         ])
       })
