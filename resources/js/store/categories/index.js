@@ -49,10 +49,10 @@ const categories = {
       try {
         await categoriesApi.updateCategory(data)
       } catch(err) {
-        console.log(err)
+        throw (err.response.data)
+      } finally {
+        commit('SET_SUBMITTING_CATEGORY', false)
       }
-
-      commit('SET_SUBMITTING_CATEGORY', false)
     },
     async deleteCategory({ store, commit }, id) {
       commit('SET_SUBMITTING_CATEGORY', true)

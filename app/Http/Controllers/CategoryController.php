@@ -47,7 +47,7 @@ class CategoryController extends Controller
             'slug' => \Illuminate\Support\Str::slug($data['name'])
         ]);
 
-        return response()->json(compact('category'));
+        return new CategoryResource($category);
     }
 
     /**
@@ -81,7 +81,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        
+        $data  = request()->validate([
+            "name" => "required|unique:categories" . ',id,' . $category->id
+        ]);
+
+        $category->update([
+            'name' => $data['name'],
+            'slug' => \Illuminate\Support\Str::slug($data['name'])
+        ]);
+
+        return new CategoryResource($category);
     }
 
     /**

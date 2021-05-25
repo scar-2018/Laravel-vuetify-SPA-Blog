@@ -234,40 +234,61 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context2.prev = _context2.next) {
               case 0:
                 if (!(_this4.editedIndex > -1)) {
-                  _context2.next = 3;
+                  _context2.next = 14;
                   break;
                 }
 
-                _context2.next = 14;
+                _context2.prev = 1;
+                _context2.next = 4;
+                return _this4.updateCategory(_this4.editedItem);
+
+              case 4:
+                _this4.close();
+
+                _this4.showSuccess('Successfully Updated');
+
+                _this4.getCategories();
+
+                _context2.next = 12;
                 break;
 
-              case 3:
-                _context2.prev = 3;
-                _context2.next = 6;
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](1);
+
+                _this4.showError(_context2.t0);
+
+              case 12:
+                _context2.next = 25;
+                break;
+
+              case 14:
+                _context2.prev = 14;
+                _context2.next = 17;
                 return _this4.createCategory(_this4.editedItem);
 
-              case 6:
+              case 17:
                 _this4.close();
 
                 _this4.showSuccess('Successfully Created');
 
                 _this4.getCategories();
 
-                _context2.next = 14;
+                _context2.next = 25;
                 break;
 
-              case 11:
-                _context2.prev = 11;
-                _context2.t0 = _context2["catch"](3);
+              case 22:
+                _context2.prev = 22;
+                _context2.t1 = _context2["catch"](14);
 
-                _this4.showError(_context2.t0);
+                _this4.showError(_context2.t1);
 
-              case 14:
+              case 25:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[3, 11]]);
+        }, _callee2, null, [[1, 9], [14, 22]]);
       }))();
     }
   })

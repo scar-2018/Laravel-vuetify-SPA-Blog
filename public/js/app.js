@@ -2742,17 +2742,19 @@ var categories = {
               case 7:
                 _context3.prev = 7;
                 _context3.t0 = _context3["catch"](2);
-                console.log(_context3.t0);
+                throw _context3.t0.response.data;
 
               case 10:
+                _context3.prev = 10;
                 commit('SET_SUBMITTING_CATEGORY', false);
+                return _context3.finish(10);
 
-              case 11:
+              case 13:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[2, 7]]);
+        }, _callee3, null, [[2, 7, 10, 13]]);
       }))();
     },
     deleteCategory: function deleteCategory(_ref4, id) {

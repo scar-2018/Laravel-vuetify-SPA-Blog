@@ -176,7 +176,14 @@
 
       async save () {
         if (this.editedIndex > -1) {
-          // Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          try {
+            await this.updateCategory(this.editedItem)
+            this.close()
+            this.showSuccess('Successfully Updated')
+            this.getCategories()
+          } catch (err) {
+            this.showError(err)
+          }
         } else {
           try {
             await this.createCategory(this.editedItem)
