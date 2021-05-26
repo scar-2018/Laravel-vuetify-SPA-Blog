@@ -17,21 +17,21 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $sort = strtolower(request('sortBy'));
-        
-        if ($sort == 'latest')
-            $posts = Post::latest();
-        else if ($sort == 'popular')
-            $posts = Post::orderBy('visits', 'DESC');
-        else
-            $posts = Post::orderBy('title');
+        $posts = Post::get();
+        // if ($sort == 'latest')
+        //     $posts = Post::latest();
+        // else if ($sort == 'popular')
+        //     $posts = Post::orderBy('visits', 'DESC');
+        // else
+        //     $posts = Post::orderBy('title');
 
-        if (request('category')) {
-            $posts = $posts->where('category_id', function($query) {
-                $query->select('id')->from('categories')->where('slug', request('category'))->limit(1);
-            });
-        }
+        // if (request('category')) {
+        //     $posts = $posts->where('category_id', function($query) {
+        //         $query->select('id')->from('categories')->where('slug', request('category'))->limit(1);
+        //     });
+        // }
 
-        $posts = $posts->paginate(7);
+        // $posts = $posts->paginate(7);
 
         return PostResource::collection($posts);
     }

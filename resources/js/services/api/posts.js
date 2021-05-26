@@ -2,8 +2,8 @@ export default {
   getPosts(queryObject) {
   	let append = '?'
   	for (const [key, value] of Object.entries(queryObject)) {
-	  append += `&${key}=${value}`
-	}
+  	  append += `&${key}=${value}`
+    }
 
     return axios.get(`/posts${append}`)
   },

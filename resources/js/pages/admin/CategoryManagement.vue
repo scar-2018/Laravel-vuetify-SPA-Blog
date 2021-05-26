@@ -24,7 +24,7 @@
                   v-on="on"
                 >
                   <v-icon left>mdi-plus-circle</v-icon>
-                  New Item
+                  New Category
                 </v-btn>
               </template>
               <v-card>
@@ -75,6 +75,9 @@
             </v-dialog>
           </v-toolbar>
         </template>
+        <template v-slot:item.posts_count="{ item }">
+          <v-chip small color="primary">{{ item.posts_count }}</v-chip>
+        </template>
         <template v-slot:item.actions="{ item }">
           <v-btn icon class="mr-2" @click="editItem(item)">
             <v-icon small>
@@ -101,6 +104,7 @@
         headers: [
           { text: 'Name', value: 'name'},
           { text: 'Slug', value: 'slug' },
+          { text: 'Posts', value: 'posts_count' },
           { text: 'Actions', value: 'actions', sortable: false },
         ],
         editedIndex: -1,

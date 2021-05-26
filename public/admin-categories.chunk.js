@@ -118,6 +118,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -130,6 +133,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         text: 'Slug',
         value: 'slug'
+      }, {
+        text: 'Posts',
+        value: 'posts_count'
       }, {
         text: 'Actions',
         value: 'actions',
@@ -437,7 +443,7 @@ var render = function() {
                                       _vm._v("mdi-plus-circle")
                                     ]),
                                     _vm._v(
-                                      "\n              New Item\n            "
+                                      "\n              New Category\n            "
                                     )
                                   ],
                                   1
@@ -599,6 +605,17 @@ var render = function() {
               ]
             },
             proxy: true
+          },
+          {
+            key: "item.posts_count",
+            fn: function(ref) {
+              var item = ref.item
+              return [
+                _c("v-chip", { attrs: { small: "", color: "primary" } }, [
+                  _vm._v(_vm._s(item.posts_count))
+                ])
+              ]
+            }
           },
           {
             key: "item.actions",
