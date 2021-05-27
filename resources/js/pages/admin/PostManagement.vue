@@ -36,8 +36,14 @@
       <template v-slot:item.category="{ item }">
         {{ item.category.name }}
       </template>
+      <template v-slot:item.description="{ item }">
+        <div v-html="item.description"></div>
+      </template>
       <template v-slot:item.visits="{ item }">
         <v-chip small color="primary">{{ item.visits }}</v-chip>
+      </template>
+      <template v-slot:item.online="{ item }">
+        <v-icon :color="item.online ? 'green' : 'grey'">mdi-checkbox-blank-circle</v-icon>
       </template>
       <template v-slot:item.actions="{ item }">
         <v-btn icon class="mr-2" :to="`/admin/posts/edit/${item.slug}`">
@@ -67,6 +73,7 @@
           { text: 'Description', value: 'description' },
           { text: 'Category', value: 'category' },
           { text: 'Visits', value: 'visits' },
+          { text: 'Online', value: 'online' },
           { text: 'Actions', value: 'actions', sortable: false },
         ],
         editedIndex: -1,

@@ -5,6 +5,7 @@ const posts = {
   state : {
     loadingPosts: false,
     loadingPost: false,
+    savingPost: false,
     posts: [],
     post: null
   },
@@ -14,6 +15,9 @@ const posts = {
     },
     SET_LOADING_POST(state, loading) {
       state.loadingPost = loading
+    },
+    SET_SAVING_POST(state, loading) {
+      state.savingPost = loading
     },
 
     SET_POSTS(state, posts) {
@@ -48,6 +52,7 @@ const posts = {
         const response = await postsApi.getPost(slug)
 
         commit('SET_POST', response.data.data)
+        return response
       } catch(err) {
         console.log(err)
       }
@@ -56,14 +61,26 @@ const posts = {
     },
 
     async createPost({ store, commit }, payload) {
-      commit('SET_LOADING_POST', true)
+      commit('SET_SAVING_POST', true)
       
       try {
         await postsApi.createPost(payload)
       } catch(err) {
         throw (err.response.data)
       } finally {
-        commit('SET_LOADING_POST', false)
+        commit('SET_SAVING_POST', false)
+      }
+    },
+
+    async updatePost({ store, commit }, payload) {
+      commit('SET_SAVING_POST', true)
+      
+      try {
+        await postsApi.updatePost(payload)
+      } catch(err) {
+        throw (err.response.data)
+      } finally {
+        commit('SET_SAVING_POST', false)
       }
     },
 

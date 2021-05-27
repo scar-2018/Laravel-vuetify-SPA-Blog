@@ -41,6 +41,13 @@ const routes = [
     meta: {
       layout: "admin-layout"
     }
+  }, {
+    path: "/admin/posts/edit/:slug",
+    component: () => import(/* webpackChunkName: "admin-post-edit" */ '../pages/admin/PostEdit.vue'),
+    name: "admin-post-edit",
+    meta: {
+      layout: "admin-layout"
+    }
   }
 ]
 

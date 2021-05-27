@@ -16,6 +16,9 @@ export default {
   createPost(data) {
     return axios.post('/posts', data)
   },
+  updatePost(data) {
+    return axios.put(`/posts/${data.slug}`, data)
+  },
   deletePost(slug) {
     return axios.delete(`/posts/${slug}`)
   }

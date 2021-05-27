@@ -58,7 +58,8 @@ class PostController extends Controller
 
         $data = request()->validate([
             'title' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'content' => 'required'
         ]);
 
         $post = $user->posts()->create([
@@ -101,9 +102,23 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $data = request()->validate([
+            'title' => 'required',
+            'category_id' => 'required',
+            'content' => 'required'
+        ]);
+
+        $post->update([
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'content' => $request->content,
+            'slug' => \Illuminate\Support\Str::slug($request->title),
+            'cover' => 'cover.jpg'
+        ]);
+
+        return response()->json('Successfully updated');
     }
 
     /**

@@ -1,6 +1,6 @@
 <template>
-  <v-card width="100%">
-    <v-card-title>Create a new post</v-card-title>
+  <v-card width="100%" v-if="form">
+    <v-card-title>Edit post</v-card-title>
     <v-card-text>
       <v-form ref="form" @submit.prevent="save">
         <v-text-field
@@ -32,7 +32,7 @@
           color="primary"
           :loading="savingPost"
           :disabled="savingPost"
-        >Create</v-btn>
+        >Save</v-btn>
       </v-form>
     </v-card-text>
   </v-card>
@@ -43,7 +43,7 @@
   export default {
     data() {
       return {
-        form: {},
+        form: null,
         rules: {
           required: value => !!value || 'Required.'
         },
@@ -53,18 +53,27 @@
       ...mapState({
         categories: (state) => state.categories.categories,
         savingPost: (state) => state.posts.savingPost
-      }),
+      })
     },
-    mounted() {
-      this.getCategories()
+    async mounted() {
+      try {
+        this.getCategories()
+
+        const postData = await this.getPost(this.$route.params.slug)
+
+        this.form = postData.data.data
+        this.form.category_id = this.form.category.id
+      } catch (err) {
+        console.log(err)
+      }
     },
     methods: {
-      ...mapActions('posts', ['createPost']),
+      ...mapActions('posts', ['updatePost', 'getPost']),
       ...mapActions('categories', ['getCategories']),
       async save() {
         if (this.$refs.form.validate()) {
           try {
-            await this.createPost(this.form)
+            await this.updatePost(this.form)
 
             this.$router.push({ name: 'admin-posts' })
           } catch (err) {
@@ -75,3 +84,6 @@
     }
   }
 </script>
+<style>
+  @import '~simplemde/dist/simplemde.min.css';
+</style>

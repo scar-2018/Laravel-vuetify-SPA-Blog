@@ -82,6 +82,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -100,6 +106,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         text: 'Visits',
         value: 'visits'
+      }, {
+        text: 'Online',
+        value: 'online'
       }, {
         text: 'Actions',
         value: 'actions',
@@ -391,6 +400,15 @@ var render = function() {
             }
           },
           {
+            key: "item.description",
+            fn: function(ref) {
+              var item = ref.item
+              return [
+                _c("div", { domProps: { innerHTML: _vm._s(item.description) } })
+              ]
+            }
+          },
+          {
             key: "item.visits",
             fn: function(ref) {
               var item = ref.item
@@ -398,6 +416,19 @@ var render = function() {
                 _c("v-chip", { attrs: { small: "", color: "primary" } }, [
                   _vm._v(_vm._s(item.visits))
                 ])
+              ]
+            }
+          },
+          {
+            key: "item.online",
+            fn: function(ref) {
+              var item = ref.item
+              return [
+                _c(
+                  "v-icon",
+                  { attrs: { color: item.online ? "green" : "grey" } },
+                  [_vm._v("mdi-checkbox-blank-circle")]
+                )
               ]
             }
           },

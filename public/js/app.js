@@ -2355,6 +2355,15 @@ var routes = [{
   meta: {
     layout: "admin-layout"
   }
+}, {
+  path: "/admin/posts/edit/:slug",
+  component: function component() {
+    return __webpack_require__.e(/*! import() | admin-post-edit */ "admin-post-edit").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/PostEdit.vue */ "./resources/js/pages/admin/PostEdit.vue"));
+  },
+  name: "admin-post-edit",
+  meta: {
+    layout: "admin-layout"
+  }
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (routes);
 
@@ -2522,6 +2531,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   createPost: function createPost(data) {
     return axios.post('/posts', data);
+  },
+  updatePost: function updatePost(data) {
+    return axios.put("/posts/".concat(data.slug), data);
   },
   deletePost: function deletePost(slug) {
     return axios["delete"]("/posts/".concat(slug));
@@ -2955,6 +2967,7 @@ var posts = {
   state: {
     loadingPosts: false,
     loadingPost: false,
+    savingPost: false,
     posts: [],
     post: null
   },
@@ -2964,6 +2977,9 @@ var posts = {
     },
     SET_LOADING_POST: function SET_LOADING_POST(state, loading) {
       state.loadingPost = loading;
+    },
+    SET_SAVING_POST: function SET_SAVING_POST(state, loading) {
+      state.savingPost = loading;
     },
     SET_POSTS: function SET_POSTS(state, posts) {
       state.posts = posts;
@@ -3026,23 +3042,22 @@ var posts = {
               case 5:
                 response = _context2.sent;
                 commit('SET_POST', response.data.data);
-                _context2.next = 12;
-                break;
+                return _context2.abrupt("return", response);
 
-              case 9:
-                _context2.prev = 9;
+              case 10:
+                _context2.prev = 10;
                 _context2.t0 = _context2["catch"](2);
                 console.log(_context2.t0);
 
-              case 12:
+              case 13:
                 commit('SET_LOADING_POST', false);
 
-              case 13:
+              case 14:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[2, 9]]);
+        }, _callee2, null, [[2, 10]]);
       }))();
     },
     createPost: function createPost(_ref3, payload) {
@@ -3053,7 +3068,7 @@ var posts = {
             switch (_context3.prev = _context3.next) {
               case 0:
                 store = _ref3.store, commit = _ref3.commit;
-                commit('SET_LOADING_POST', true);
+                commit('SET_SAVING_POST', true);
                 _context3.prev = 2;
                 _context3.next = 5;
                 return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.createPost(payload);
@@ -3069,7 +3084,7 @@ var posts = {
 
               case 10:
                 _context3.prev = 10;
-                commit('SET_LOADING_POST', false);
+                commit('SET_SAVING_POST', false);
                 return _context3.finish(10);
 
               case 13:
@@ -3080,7 +3095,7 @@ var posts = {
         }, _callee3, null, [[2, 7, 10, 13]]);
       }))();
     },
-    deletePost: function deletePost(_ref4, slug) {
+    updatePost: function updatePost(_ref4, payload) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
         var store, commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
@@ -3088,10 +3103,10 @@ var posts = {
             switch (_context4.prev = _context4.next) {
               case 0:
                 store = _ref4.store, commit = _ref4.commit;
-                commit('SET_LOADING_POST', true);
+                commit('SET_SAVING_POST', true);
                 _context4.prev = 2;
                 _context4.next = 5;
-                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.deletePost(slug);
+                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.updatePost(payload);
 
               case 5:
                 _context4.next = 10;
@@ -3104,7 +3119,7 @@ var posts = {
 
               case 10:
                 _context4.prev = 10;
-                commit('SET_LOADING_POST', false);
+                commit('SET_SAVING_POST', false);
                 return _context4.finish(10);
 
               case 13:
@@ -3115,7 +3130,7 @@ var posts = {
         }, _callee4, null, [[2, 7, 10, 13]]);
       }))();
     },
-    addVisits: function addVisits(_ref5, slug) {
+    deletePost: function deletePost(_ref5, slug) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
         var store, commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
@@ -3123,25 +3138,60 @@ var posts = {
             switch (_context5.prev = _context5.next) {
               case 0:
                 store = _ref5.store, commit = _ref5.commit;
-                _context5.prev = 1;
-                _context5.next = 4;
-                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.addVisits(slug);
+                commit('SET_LOADING_POST', true);
+                _context5.prev = 2;
+                _context5.next = 5;
+                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.deletePost(slug);
 
-              case 4:
-                _context5.next = 9;
+              case 5:
+                _context5.next = 10;
                 break;
 
-              case 6:
-                _context5.prev = 6;
-                _context5.t0 = _context5["catch"](1);
-                console.log(_context5.t0);
+              case 7:
+                _context5.prev = 7;
+                _context5.t0 = _context5["catch"](2);
+                throw _context5.t0.response.data;
 
-              case 9:
+              case 10:
+                _context5.prev = 10;
+                commit('SET_LOADING_POST', false);
+                return _context5.finish(10);
+
+              case 13:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[1, 6]]);
+        }, _callee5, null, [[2, 7, 10, 13]]);
+      }))();
+    },
+    addVisits: function addVisits(_ref6, slug) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+        var store, commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                store = _ref6.store, commit = _ref6.commit;
+                _context6.prev = 1;
+                _context6.next = 4;
+                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.addVisits(slug);
+
+              case 4:
+                _context6.next = 9;
+                break;
+
+              case 6:
+                _context6.prev = 6;
+                _context6.t0 = _context6["catch"](1);
+                console.log(_context6.t0);
+
+              case 9:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, null, [[1, 6]]);
       }))();
     }
   }
