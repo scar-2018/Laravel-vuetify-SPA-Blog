@@ -1,5 +1,11 @@
 const routes = [
   {
+    path: "/admin",
+    redirect: '/admin/dashboard',
+    meta: {
+      layout: "admin-layout"
+    }
+  }, {
     path: "/admin/dashboard",
     component: () => import(/* webpackChunkName: "admin-dashboard" */ '../pages/admin/AdminDashboard.vue'),
     name: "admin-dashboard",
@@ -24,13 +30,6 @@ const routes = [
     path: "/admin/comments",
     component: () => import(/* webpackChunkName: "admin-comments" */ '../pages/admin/CommentManagement.vue'),
     name: "admin-comments",
-    meta: {
-      layout: "admin-layout"
-    }
-  }, {
-    path: "/admin/tags",
-    component: () => import(/* webpackChunkName: "admin-tags" */ '../pages/admin/TagManagement.vue'),
-    name: "admin-tags",
     meta: {
       layout: "admin-layout"
     }

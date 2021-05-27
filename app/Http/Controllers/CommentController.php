@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 use App\Http\Resources\CommentResource;
 
 class CommentController extends Controller
@@ -13,9 +14,14 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Post $post)
+    public function index(Request $request)
     {
-        $comments = $post->comments;
+        if ($request->has('post')) {
+            $post = Post::where('slug', $request->input('post'))->first();
+            $comments = $post->comments;
+        } else {
+            $comments = Comment::paginate(7);
+        }
 
         return CommentResource::collection($comments);
     }
@@ -93,8 +99,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return response()->json('Successfully deleted');
     }
 }

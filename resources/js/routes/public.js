@@ -4,14 +4,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "posts" */ '../pages/Index.vue'),
     name: "posts",
     meta: {
-        layout: "blog-layout"
+      layout: "blog-layout"
     }
   }, {
-    path: "/:slug",
+    path: "/p/:slug",
     component: () => import(/* webpackChunkName: "post" */ '../pages/Post.vue'),
     name: "post",
     meta: {
-        layout: "blog-layout"
+      layout: "blog-layout"
     }
   }
 ]

@@ -18,7 +18,7 @@
     <v-card-actions>
       <v-list-item class="grow">
         <v-list-item-content>
-          <v-list-item-title><router-link :to="'/' + post.slug">Continue Reading</router-link></v-list-item-title>
+          <v-list-item-title><router-link :to="'/p/' + post.slug">Continue Reading</router-link></v-list-item-title>
         </v-list-item-content>
 
         <v-row

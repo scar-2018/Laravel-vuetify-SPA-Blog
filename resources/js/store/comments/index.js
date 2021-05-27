@@ -3,10 +3,14 @@ import commentsApi from '../../services/api/comments'
 const comments = {
   namespaced: true,
   state : {
+    loadingComments: false,
     submittingComment: false,
     comments: []
   },
   mutations : {
+    SET_LOADING_COMMENTS(state, loading) {
+      state.loadingComments = loading
+    },
     SET_COMMENTS(state, comments) {
       state.comments = comments
     },
@@ -15,15 +19,20 @@ const comments = {
     }
   },
   actions : {
-    async getComments({ store, commit }, post) {
+    async getComments({ store, commit }, slug = '') {
+      commit('SET_LOADING_COMMENTS', true)
+
       try {
-        const response = await commentsApi.getComments(post)
+        const response = await commentsApi.getComments(slug)
 
         commit('SET_COMMENTS', response.data.data)
       } catch (err) {
-        console.log(err)
+        throw (err.response.data)
+      } finally {
+        commit('SET_LOADING_COMMENTS', false)
       }
     },
+
     async submitComment({ store, commit }, commentForm) {
       commit('SET_SUBMITTING', true)
 
@@ -34,6 +43,18 @@ const comments = {
       }
 
       commit('SET_SUBMITTING', false)
+    },
+
+    async deleteComment({ store, commit }, id) {
+      commit('SET_SUBMITTING', true)
+      
+      try {
+        await commentsApi.deleteComment(id)
+      } catch (err) {
+        throw (err.response.data)
+      } finally {
+        commit('SET_SUBMITTING', false)
+      }
     }
   }
 }

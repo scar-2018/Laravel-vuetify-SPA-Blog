@@ -24,5 +24,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('categories', CategoryController::class);
 Route::post('posts/{post}/add-visits', [PostController::class, 'addVisits']);
 Route::apiResource('posts', PostController::class);
-Route::get('comments/{post:slug}', [CommentController::class, 'index']);
-Route::post('comments/{post:slug}', [CommentController::class, 'store']);
+Route::apiResource('comments', CommentController::class);
+// Route::get('comments/posts/{id}', [CommentController::class, 'getPostComments']);
+// Route::post('comments/posts/{id}', [CommentController::class, 'store']);

@@ -1940,10 +1940,6 @@ __webpack_require__.r(__webpack_exports__);
         icon: 'mdi-hexagon-multiple',
         to: '/admin/categories'
       }, {
-        text: 'Tags',
-        icon: 'mdi-tag',
-        to: '/admin/tags'
-      }, {
         text: 'Posts',
         icon: 'mdi-file-document',
         to: '/admin/posts'
@@ -2302,6 +2298,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var routes = [{
+  path: "/admin",
+  redirect: '/admin/dashboard',
+  meta: {
+    layout: "admin-layout"
+  }
+}, {
   path: "/admin/dashboard",
   component: function component() {
     return __webpack_require__.e(/*! import() | admin-dashboard */ "admin-dashboard").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/AdminDashboard.vue */ "./resources/js/pages/admin/AdminDashboard.vue"));
@@ -2334,15 +2336,6 @@ var routes = [{
     return __webpack_require__.e(/*! import() | admin-comments */ "admin-comments").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/CommentManagement.vue */ "./resources/js/pages/admin/CommentManagement.vue"));
   },
   name: "admin-comments",
-  meta: {
-    layout: "admin-layout"
-  }
-}, {
-  path: "/admin/tags",
-  component: function component() {
-    return __webpack_require__.e(/*! import() | admin-tags */ "admin-tags").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/TagManagement.vue */ "./resources/js/pages/admin/TagManagement.vue"));
-  },
-  name: "admin-tags",
   meta: {
     layout: "admin-layout"
   }
@@ -2397,7 +2390,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //Routes
 
 
-var routes = [].concat(_toConsumableArray(_admin__WEBPACK_IMPORTED_MODULE_0__.default), _toConsumableArray(_public__WEBPACK_IMPORTED_MODULE_1__.default));
+var routes = [].concat(_toConsumableArray(_admin__WEBPACK_IMPORTED_MODULE_0__.default), _toConsumableArray(_public__WEBPACK_IMPORTED_MODULE_1__.default), [{
+  path: "*",
+  component: function component() {
+    return __webpack_require__.e(/*! import() | blank */ "blank").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/BlankPage.vue */ "./resources/js/pages/BlankPage.vue"));
+  },
+  name: "blank",
+  meta: {
+    layout: "simple-layout"
+  }
+}]);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (routes);
 
 /***/ }),
@@ -2423,7 +2425,7 @@ var routes = [{
     layout: "blog-layout"
   }
 }, {
-  path: "/:slug",
+  path: "/p/:slug",
   component: function component() {
     return __webpack_require__.e(/*! import() | post */ "post").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Post.vue */ "./resources/js/pages/Post.vue"));
   },
@@ -2476,11 +2478,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  getComments: function getComments(post) {
-    return axios.get("/comments/".concat(post));
+  getComments: function getComments(slug) {
+    if (slug) return axios.get("/comments?post=".concat(slug));else return axios.get('/comments');
   },
   submitComment: function submitComment(data) {
     return axios.post("/comments/".concat(data.postSlug), data);
+  },
+  deleteComment: function deleteComment(id) {
+    return axios["delete"]("/comments/".concat(id));
   }
 });
 
@@ -2818,10 +2823,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var comments = {
   namespaced: true,
   state: {
+    loadingComments: false,
     submittingComment: false,
     comments: []
   },
   mutations: {
+    SET_LOADING_COMMENTS: function SET_LOADING_COMMENTS(state, loading) {
+      state.loadingComments = loading;
+    },
     SET_COMMENTS: function SET_COMMENTS(state, comments) {
       state.comments = comments;
     },
@@ -2830,35 +2839,43 @@ var comments = {
     }
   },
   actions: {
-    getComments: function getComments(_ref, post) {
+    getComments: function getComments(_ref) {
+      var _arguments = arguments;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var store, commit, response;
+        var store, commit, slug, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 store = _ref.store, commit = _ref.commit;
-                _context.prev = 1;
-                _context.next = 4;
-                return _services_api_comments__WEBPACK_IMPORTED_MODULE_1__.default.getComments(post);
+                slug = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : '';
+                commit('SET_LOADING_COMMENTS', true);
+                _context.prev = 3;
+                _context.next = 6;
+                return _services_api_comments__WEBPACK_IMPORTED_MODULE_1__.default.getComments(slug);
 
-              case 4:
+              case 6:
                 response = _context.sent;
                 commit('SET_COMMENTS', response.data.data);
-                _context.next = 11;
+                _context.next = 13;
                 break;
 
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](1);
-                console.log(_context.t0);
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](3);
+                throw _context.t0.response.data;
 
-              case 11:
+              case 13:
+                _context.prev = 13;
+                commit('SET_LOADING_COMMENTS', false);
+                return _context.finish(13);
+
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 8]]);
+        }, _callee, null, [[3, 10, 13, 16]]);
       }))();
     },
     submitComment: function submitComment(_ref2, commentForm) {
@@ -2892,6 +2909,41 @@ var comments = {
             }
           }
         }, _callee2, null, [[2, 7]]);
+      }))();
+    },
+    deleteComment: function deleteComment(_ref3, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var store, commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                store = _ref3.store, commit = _ref3.commit;
+                commit('SET_SUBMITTING', true);
+                _context3.prev = 2;
+                _context3.next = 5;
+                return _services_api_comments__WEBPACK_IMPORTED_MODULE_1__.default.deleteComment(id);
+
+              case 5:
+                _context3.next = 10;
+                break;
+
+              case 7:
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](2);
+                throw _context3.t0.response.data;
+
+              case 10:
+                _context3.prev = 10;
+                commit('SET_SUBMITTING', false);
+                return _context3.finish(10);
+
+              case 13:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[2, 7, 10, 13]]);
       }))();
     }
   }
@@ -3042,22 +3094,25 @@ var posts = {
               case 5:
                 response = _context2.sent;
                 commit('SET_POST', response.data.data);
+                commit('SET_LOADING_POST', false);
                 return _context2.abrupt("return", response);
 
-              case 10:
-                _context2.prev = 10;
+              case 11:
+                _context2.prev = 11;
                 _context2.t0 = _context2["catch"](2);
-                console.log(_context2.t0);
-
-              case 13:
-                commit('SET_LOADING_POST', false);
+                throw _context2.t0.response.data;
 
               case 14:
+                _context2.prev = 14;
+                commit('SET_LOADING_POST', false);
+                return _context2.finish(14);
+
+              case 17:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[2, 10]]);
+        }, _callee2, null, [[2, 11, 14, 17]]);
       }))();
     },
     createPost: function createPost(_ref3, payload) {

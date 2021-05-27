@@ -9,5 +9,6 @@
     "/admin-post-edit.chunk.js": "/admin-post-edit.chunk.js",
     "/posts.chunk.js": "/posts.chunk.js",
     "/post.chunk.js": "/post.chunk.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/blank.chunk.js": "/blank.chunk.js"
 }

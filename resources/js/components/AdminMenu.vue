@@ -29,7 +29,6 @@
         items: [
           { text: 'Dashboard', icon: 'mdi-monitor-dashboard', to: '/admin/dashboard' },
           { text: 'Categories', icon: 'mdi-hexagon-multiple', to: '/admin/categories' },
-          { text: 'Tags', icon: 'mdi-tag', to: '/admin/tags' },
           { text: 'Posts', icon: 'mdi-file-document', to: '/admin/posts' },
           { text: 'Comments', icon: 'mdi-comment-multiple', to: '/admin/comments' }
         ]

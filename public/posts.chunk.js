@@ -617,7 +617,7 @@ var render = function() {
                     [
                       _c(
                         "router-link",
-                        { attrs: { to: "/" + _vm.post.slug } },
+                        { attrs: { to: "/p/" + _vm.post.slug } },
                         [_vm._v("Continue Reading")]
                       )
                     ],

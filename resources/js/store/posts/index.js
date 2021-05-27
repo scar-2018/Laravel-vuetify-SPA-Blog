@@ -52,12 +52,14 @@ const posts = {
         const response = await postsApi.getPost(slug)
 
         commit('SET_POST', response.data.data)
+        commit('SET_LOADING_POST', false)
+
         return response
       } catch(err) {
-        console.log(err)
+        throw (err.response.data)
+      } finally {
+        commit('SET_LOADING_POST', false)
       }
-
-      commit('SET_LOADING_POST', false)
     },
 
     async createPost({ store, commit }, payload) {
