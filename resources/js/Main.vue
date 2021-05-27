@@ -10,11 +10,12 @@
 <script>
   import BlogLayout from "./layouts/BlogLayout"
   import AdminLayout from "./layouts/AdminLayout"
+  import SimpleLayout from "./layouts/SimpleLayout"
   import VNotification from "./components/VNotification";
 
   export default {
     name: "App",
-    components: { AdminLayout, BlogLayout, VNotification },
+    components: { AdminLayout, BlogLayout, SimpleLayout, VNotification },
     data() {
       return {
         defaultLayout: "blog-layout"
