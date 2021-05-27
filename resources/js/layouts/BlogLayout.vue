@@ -88,32 +88,17 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-
 export default {
-  components: {
-  },
-
   data() {
     return {
       visibleSearch: false
     }
   },
 
-  computed: {
-    ...mapState({
-      categories: (state) => state.categories.categories
-    })
-  },
-
   mounted() {
-    this.getCategories()
   },
 
   methods: {
-    ...mapActions({
-      getCategories: 'categories/getCategories'
-    }),
     onKeyup(e) {
       this.$refs.search.focus()
     }

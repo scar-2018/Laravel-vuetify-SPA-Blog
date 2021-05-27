@@ -14,7 +14,7 @@
           <v-btn
             color="primary"
             class="mb-2"
-            to="/posts/create"
+            to="/admin/posts/create"
           >
             <v-icon left>mdi-plus-circle</v-icon>
             New Post
@@ -26,7 +26,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="primary" @click="deleteItemConfirm" :loading="submittingPost">OK</v-btn>
+                <v-btn color="primary" @click="deleteItemConfirm" :loading="loadingPost">OK</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -40,7 +40,7 @@
         <v-chip small color="primary">{{ item.visits }}</v-chip>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-btn icon class="mr-2" @click="editItem(item)">
+        <v-btn icon class="mr-2" :to="`/admin/posts/edit/${item.slug}`">
           <v-icon small>
             mdi-pencil
           </v-icon>
@@ -79,7 +79,7 @@
       }
     },
     computed: {
-      ...mapState('posts', ['loadingPosts', 'submittingPost', 'posts']),
+      ...mapState('posts', ['loadingPosts', 'loadingPost', 'posts']),
     },
 
     watch: {
@@ -102,10 +102,14 @@
 
       async deleteItemConfirm () {
         try {
-          await this.deletePost(this.editedIndex)
-          this.closeDelete()
-          this.showSuccess('Successfully Deleted')
-          this.getPosts({})
+          const post = this.posts.find((post) => post.id == this.editedIndex)
+
+          if (post) {
+            await this.deletePost(post.slug)
+            this.closeDelete()
+            this.showSuccess('Successfully Deleted')
+            this.getPosts({})
+          }
         } catch (err) {
           this.showError(err)
         }

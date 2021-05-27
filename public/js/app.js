@@ -2111,13 +2111,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2207,29 +2200,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {},
   data: function data() {
     return {
       visibleSearch: false
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)({
-    categories: function categories(state) {
-      return state.categories.categories;
-    }
-  })),
-  mounted: function mounted() {
-    this.getCategories();
-  },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
-    getCategories: 'categories/getCategories'
-  })), {}, {
+  mounted: function mounted() {},
+  methods: {
     onKeyup: function onKeyup(e) {
       this.$refs.search.focus();
     }
-  })
+  }
 });
 
 /***/ }),
@@ -2361,6 +2343,15 @@ var routes = [{
     return __webpack_require__.e(/*! import() | admin-tags */ "admin-tags").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/TagManagement.vue */ "./resources/js/pages/admin/TagManagement.vue"));
   },
   name: "admin-tags",
+  meta: {
+    layout: "admin-layout"
+  }
+}, {
+  path: "/admin/posts/create",
+  component: function component() {
+    return __webpack_require__.e(/*! import() | admin-post-create */ "admin-post-create").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/PostCreate.vue */ "./resources/js/pages/admin/PostCreate.vue"));
+  },
+  name: "admin-post-create",
   meta: {
     layout: "admin-layout"
   }
@@ -2528,6 +2519,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   addVisits: function addVisits(slug) {
     return axios.post("/posts/".concat(slug, "/add-visits"));
+  },
+  createPost: function createPost(data) {
+    return axios.post('/posts', data);
+  },
+  deletePost: function deletePost(slug) {
+    return axios["delete"]("/posts/".concat(slug));
   }
 });
 
@@ -3048,7 +3045,7 @@ var posts = {
         }, _callee2, null, [[2, 9]]);
       }))();
     },
-    addVisits: function addVisits(_ref3, slug) {
+    createPost: function createPost(_ref3, payload) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         var store, commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
@@ -3056,25 +3053,95 @@ var posts = {
             switch (_context3.prev = _context3.next) {
               case 0:
                 store = _ref3.store, commit = _ref3.commit;
-                _context3.prev = 1;
-                _context3.next = 4;
-                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.addVisits(slug);
+                commit('SET_LOADING_POST', true);
+                _context3.prev = 2;
+                _context3.next = 5;
+                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.createPost(payload);
 
-              case 4:
-                _context3.next = 9;
+              case 5:
+                _context3.next = 10;
                 break;
 
-              case 6:
-                _context3.prev = 6;
-                _context3.t0 = _context3["catch"](1);
-                console.log(_context3.t0);
+              case 7:
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](2);
+                throw _context3.t0.response.data;
 
-              case 9:
+              case 10:
+                _context3.prev = 10;
+                commit('SET_LOADING_POST', false);
+                return _context3.finish(10);
+
+              case 13:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[1, 6]]);
+        }, _callee3, null, [[2, 7, 10, 13]]);
+      }))();
+    },
+    deletePost: function deletePost(_ref4, slug) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var store, commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                store = _ref4.store, commit = _ref4.commit;
+                commit('SET_LOADING_POST', true);
+                _context4.prev = 2;
+                _context4.next = 5;
+                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.deletePost(slug);
+
+              case 5:
+                _context4.next = 10;
+                break;
+
+              case 7:
+                _context4.prev = 7;
+                _context4.t0 = _context4["catch"](2);
+                throw _context4.t0.response.data;
+
+              case 10:
+                _context4.prev = 10;
+                commit('SET_LOADING_POST', false);
+                return _context4.finish(10);
+
+              case 13:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[2, 7, 10, 13]]);
+      }))();
+    },
+    addVisits: function addVisits(_ref5, slug) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        var store, commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                store = _ref5.store, commit = _ref5.commit;
+                _context5.prev = 1;
+                _context5.next = 4;
+                return _services_api_posts__WEBPACK_IMPORTED_MODULE_1__.default.addVisits(slug);
+
+              case 4:
+                _context5.next = 9;
+                break;
+
+              case 6:
+                _context5.prev = 6;
+                _context5.t0 = _context5["catch"](1);
+                console.log(_context5.t0);
+
+              case 9:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, null, [[1, 6]]);
       }))();
     }
   }

@@ -30,12 +30,10 @@
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
+
   export default {
     props: {
-      categories: {
-        type: Array,
-        default: () => []
-      },
       value: {
         type: String
       }
@@ -45,7 +43,18 @@
 
       }
     },
+    computed: {
+      ...mapState({
+        categories: (state) => state.categories.categories
+      })
+    },
+    mounted() {
+      this.getCategories()
+    },
     methods: {
+      ...mapActions({
+        getCategories: 'categories/getCategories'
+      }),
       updateValue(value) {
         this.$emit('input', value)
       }

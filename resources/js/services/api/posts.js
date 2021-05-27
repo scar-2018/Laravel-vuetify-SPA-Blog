@@ -12,5 +12,11 @@ export default {
   },
   addVisits(slug) {
     return axios.post(`/posts/${slug}/add-visits`)
+  },
+  createPost(data) {
+    return axios.post('/posts', data)
+  },
+  deletePost(slug) {
+    return axios.delete(`/posts/${slug}`)
   }
 }

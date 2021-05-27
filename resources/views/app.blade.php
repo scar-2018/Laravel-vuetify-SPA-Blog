@@ -18,8 +18,6 @@
 
   <body>
     <div id="app">
-        {{ asset('css/style.css') }}
-        <example-component></example-component>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
   </body>

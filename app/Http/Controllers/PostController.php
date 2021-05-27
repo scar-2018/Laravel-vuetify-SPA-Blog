@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use App\Http\Resources\PostResource;
 
@@ -17,21 +18,20 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $sort = strtolower(request('sortBy'));
-        $posts = Post::get();
-        // if ($sort == 'latest')
-        //     $posts = Post::latest();
-        // else if ($sort == 'popular')
-        //     $posts = Post::orderBy('visits', 'DESC');
-        // else
-        //     $posts = Post::orderBy('title');
+        if ($sort == 'latest')
+            $posts = Post::latest();
+        else if ($sort == 'popular')
+            $posts = Post::orderBy('visits', 'DESC');
+        else
+            $posts = Post::orderBy('title');
 
-        // if (request('category')) {
-        //     $posts = $posts->where('category_id', function($query) {
-        //         $query->select('id')->from('categories')->where('slug', request('category'))->limit(1);
-        //     });
-        // }
+        if (request('category')) {
+            $posts = $posts->where('category_id', function($query) {
+                $query->select('id')->from('categories')->where('slug', request('category'))->limit(1);
+            });
+        }
 
-        // $posts = $posts->paginate(7);
+        $posts = $posts->paginate(7);
 
         return PostResource::collection($posts);
     }
@@ -54,7 +54,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::findOrFail(1);
+
+        $data = request()->validate([
+            'title' => 'required',
+            'category_id' => 'required'
+        ]);
+
+        $post = $user->posts()->create([
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'content' => $request->content,
+            'slug' => \Illuminate\Support\Str::slug($request->title),
+            'cover' => 'cover.jpg'
+        ]);
+
+        return new PostResource($post);
     }
 
     /**
@@ -97,9 +112,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return response()->json('Successfully deleted');
     }
 
     public function addVisits(Request $request, Post $post) {

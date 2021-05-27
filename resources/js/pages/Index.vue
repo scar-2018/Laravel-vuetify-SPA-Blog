@@ -30,7 +30,6 @@
           <h2>Categories</h2>
           <categories-card
             v-model="category"
-            :categories="categories"
             class="mt-4"
             @input="gotoPage"
           ></categories-card>
@@ -59,8 +58,7 @@
     },
     computed: {
       ...mapState({
-        posts: (state) => state.posts.posts,
-        categories: (state) => state.categories.categories
+        posts: (state) => state.posts.posts
       })
     },
     mounted() {

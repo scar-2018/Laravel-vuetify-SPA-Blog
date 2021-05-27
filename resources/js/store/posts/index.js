@@ -55,6 +55,30 @@ const posts = {
       commit('SET_LOADING_POST', false)
     },
 
+    async createPost({ store, commit }, payload) {
+      commit('SET_LOADING_POST', true)
+      
+      try {
+        await postsApi.createPost(payload)
+      } catch(err) {
+        throw (err.response.data)
+      } finally {
+        commit('SET_LOADING_POST', false)
+      }
+    },
+
+    async deletePost({ store, commit }, slug) {
+      commit('SET_LOADING_POST', true)
+      
+      try {
+        await postsApi.deletePost(slug)
+      } catch(err) {
+        throw (err.response.data)
+      } finally {
+        commit('SET_LOADING_POST', false)
+      }
+    },
+
     async addVisits({ store, commit }, slug) {
       try {
         await postsApi.addVisits(slug)

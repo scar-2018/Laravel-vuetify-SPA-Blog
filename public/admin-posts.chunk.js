@@ -114,7 +114,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('posts', ['loadingPosts', 'submittingPost', 'posts'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('posts', ['loadingPosts', 'loadingPost', 'posts'])),
   watch: {
     dialogDelete: function dialogDelete(val) {
       val || this.closeDelete();
@@ -133,36 +133,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var post;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _context.next = 3;
-                return _this.deletePost(_this.editedIndex);
+                post = _this.posts.find(function (post) {
+                  return post.id == _this.editedIndex;
+                });
 
-              case 3:
+                if (!post) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 5;
+                return _this.deletePost(post.slug);
+
+              case 5:
                 _this.closeDelete();
 
                 _this.showSuccess('Successfully Deleted');
 
                 _this.getPosts({});
 
-                _context.next = 11;
+              case 8:
+                _context.next = 13;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](0);
 
                 _this.showError(_context.t0);
 
-              case 11:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 10]]);
       }))();
     },
     closeDelete: function closeDelete() {
@@ -294,7 +305,7 @@ var render = function() {
                       "v-btn",
                       {
                         staticClass: "mb-2",
-                        attrs: { color: "primary", to: "/posts/create" }
+                        attrs: { color: "primary", to: "/admin/posts/create" }
                       },
                       [
                         _c("v-icon", { attrs: { left: "" } }, [
@@ -346,7 +357,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       color: "primary",
-                                      loading: _vm.submittingPost
+                                      loading: _vm.loadingPost
                                     },
                                     on: { click: _vm.deleteItemConfirm }
                                   },
@@ -399,12 +410,7 @@ var render = function() {
                   "v-btn",
                   {
                     staticClass: "mr-2",
-                    attrs: { icon: "" },
-                    on: {
-                      click: function($event) {
-                        return _vm.editItem(item)
-                      }
-                    }
+                    attrs: { icon: "", to: "/admin/posts/edit/" + item.slug }
                   },
                   [
                     _c("v-icon", { attrs: { small: "" } }, [

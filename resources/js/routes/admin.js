@@ -34,6 +34,13 @@ const routes = [
     meta: {
       layout: "admin-layout"
     }
+  }, {
+    path: "/admin/posts/create",
+    component: () => import(/* webpackChunkName: "admin-post-create" */ '../pages/admin/PostCreate.vue'),
+    name: "admin-post-create",
+    meta: {
+      layout: "admin-layout"
+    }
   }
 ]
 
