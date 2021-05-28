@@ -6,6 +6,13 @@ const routes = [
       layout: "admin-layout"
     }
   }, {
+    path: "/admin/login",
+    component: () => import(/* webpackChunkName: "admin-login" */ '../pages/admin/auth/Login.vue'),
+    name: 'login',
+    meta: {
+      layout: "simple-layout"
+    }
+  }, {
     path: "/admin/dashboard",
     component: () => import(/* webpackChunkName: "admin-dashboard" */ '../pages/admin/AdminDashboard.vue'),
     name: "admin-dashboard",

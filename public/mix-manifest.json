@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/blank.chunk.js": "/blank.chunk.js",
+    "/admin-login.chunk.js": "/admin-login.chunk.js",
     "/admin-dashboard.chunk.js": "/admin-dashboard.chunk.js",
     "/admin-categories.chunk.js": "/admin-categories.chunk.js",
     "/admin-posts.chunk.js": "/admin-posts.chunk.js",

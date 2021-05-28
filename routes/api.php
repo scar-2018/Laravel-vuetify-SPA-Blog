@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\PostController;
 use \App\Http\Controllers\CommentController;
+use \App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +18,13 @@ use \App\Http\Controllers\CommentController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::apiResource('categories', CategoryController::class);
 Route::post('posts/{post}/add-visits', [PostController::class, 'addVisits']);
 Route::apiResource('posts', PostController::class);
 Route::apiResource('comments', CommentController::class);
-// Route::get('comments/posts/{id}', [CommentController::class, 'getPostComments']);
-// Route::post('comments/posts/{id}', [CommentController::class, 'store']);
+
+Route::group(['prefix' => 'auth'], function() {
+	Route::post('login', [AuthController::class, 'login']);
+	Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
+	Route::get('user', [AuthController::class, 'getAuthUser'])->middleware('auth:api');
+});

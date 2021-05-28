@@ -1,3 +1,5 @@
+import api from '../../api'
+
 export default {
   getPosts(queryObject) {
   	let append = '?'
@@ -5,21 +7,21 @@ export default {
   	  append += `&${key}=${value}`
     }
 
-    return axios.get(`/posts${append}`)
+    return api.get(`/posts${append}`)
   },
   getPost(slug) {
-    return axios.get(`/posts/${slug}`)
+    return api.get(`/posts/${slug}`)
   },
   addVisits(slug) {
-    return axios.post(`/posts/${slug}/add-visits`)
+    return api.post(`/posts/${slug}/add-visits`)
   },
   createPost(data) {
-    return axios.post('/posts', data)
+    return api.post('/posts', data)
   },
   updatePost(data) {
-    return axios.put(`/posts/${data.slug}`, data)
+    return api.put(`/posts/${data.slug}`, data)
   },
   deletePost(slug) {
-    return axios.delete(`/posts/${slug}`)
+    return api.delete(`/posts/${slug}`)
   }
 }
