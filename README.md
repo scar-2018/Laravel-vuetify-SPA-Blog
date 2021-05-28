@@ -16,7 +16,8 @@
 - [vuex modules](https://vuex.vuejs.org/)
 
 ## Functionalities to be added later
-- Different User roles
+- Multi User roles
+- Unit Test
 
 ## Installation
 1. Download source code
