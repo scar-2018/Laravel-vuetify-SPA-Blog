@@ -6,5 +6,8 @@ export default {
   },
   getAuthUser() {
     return api.get('/auth/user')
+  },
+  signOut() {
+    return api.get('/auth/logout')
   }
 }

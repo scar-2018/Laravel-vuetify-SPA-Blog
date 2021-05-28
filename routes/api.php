@@ -25,6 +25,6 @@ Route::apiResource('comments', CommentController::class);
 
 Route::group(['prefix' => 'auth'], function() {
 	Route::post('login', [AuthController::class, 'login']);
-	Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
+	Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:api');
 	Route::get('user', [AuthController::class, 'getAuthUser'])->middleware('auth:api');
 });

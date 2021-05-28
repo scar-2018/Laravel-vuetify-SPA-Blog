@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from './store'
 
 const API = axios.create({
-  baseURL: process.env.MIX_BASE_URL || '/api',
+  baseURL: process.env.MIX_API_BASE_URL || '/api',
   timeout: 5000
 })
 

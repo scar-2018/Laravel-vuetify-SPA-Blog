@@ -39,7 +39,7 @@
       height="64"
     >
       <v-spacer class="d-none d-lg-block"></v-spacer>
-      <!-- <toolbar-user /> -->
+      <toolbar-user />
     </v-app-bar>
 
     <v-main>
@@ -56,12 +56,12 @@
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 import AdminMenu from '../components/AdminMenu'
-// import ToolbarUser from '../components/toolbar/ToolbarUser'
+import ToolbarUser from '../components/toolbar/ToolbarUser'
 
 export default {
   components: {
     AdminMenu,
-    // ToolbarUser
+    ToolbarUser
   },
   data() {
     return {

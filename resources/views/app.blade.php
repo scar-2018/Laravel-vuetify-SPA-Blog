@@ -9,7 +9,6 @@
     <meta name="keyword" content="Laravel,Vue,Vuetify,SPA">
     <title>Laravel-vue-SPA</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="api-base-url" content="{{ config('app.url') }}" />
     
     <!-- Main styles for this application-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">

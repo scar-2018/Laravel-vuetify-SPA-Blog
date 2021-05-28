@@ -17,6 +17,10 @@ export default {
     },
     SET_BTN_LOADING(state, loading) { state.loading = loading },
     SET_TOKEN(state, token) { state.token = token },
+    SET_LOGOUT_AUTH(state) {
+      state.token = null
+      state.user = null
+    },
     SET_ERROR(state, errors) { state.errors = errors }
   },
   actions : {
@@ -49,6 +53,19 @@ export default {
         })
       } catch (err) {
         throw (err.response.data)
+      }
+    },
+
+    async signOut({ store, commit }) {
+      try {
+        const response = await authApi.signOut()
+
+        commit('SET_LOGOUT_AUTH')
+        localStorage.removeItem('token')
+
+        return response
+      } catch (err) {
+        throw (err)
       }
     }
   }

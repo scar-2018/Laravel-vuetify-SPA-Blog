@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router';
 
+import store from '../store'
+import bootstrap from './bootstrap'
+
 import adminRoutes from "./admin"
 import publicRoutes from "./public"
-
-import bootstrap from './bootstrap'
 
 Vue.use(VueRouter);
 
@@ -36,7 +37,22 @@ router.beforeEach(async (to, from, next) => {
     await bootstrap()
   }
 
-  next()
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+  const requiresGuest = to.matched.some((record) => record.meta.requiresGuest)
+
+  const isLoggedIn = !!store.state.auth.user
+
+  if (requiresAuth) {
+    if (!isLoggedIn)
+      return next({ name: 'login' })
+    return next()
+  } else if (requiresGuest) {
+    if (isLoggedIn)
+      return next({ name: 'admin-dashboard' })
+    return next()
+  }
+
+  return next()
 })
 
 export default router
