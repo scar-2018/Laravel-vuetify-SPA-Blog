@@ -4,7 +4,7 @@
     <img
       height="220"
       width="100%"
-      src="cover.jpg"
+      src="img/cover.jpg"
       style="object-fit: cover;"
     />
     <v-chip class="ml-4 mt-4 mb-n4" label color="" dark small>

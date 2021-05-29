@@ -16,7 +16,7 @@ mix.webpackConfig({
 	output: {
 		publicPath: '/laravel-vue-spa-blog/public/',
 		path: path.join(__dirname, "public"),
-		chunkFilename: "[id].chunk.js"
+		chunkFilename: "js/[id].chunk.js"
 	}
 });
 

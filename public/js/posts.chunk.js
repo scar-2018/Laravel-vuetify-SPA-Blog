@@ -582,7 +582,7 @@ var render = function() {
     [
       _c("img", {
         staticStyle: { "object-fit": "cover" },
-        attrs: { height: "220", width: "100%", src: "cover.jpg" }
+        attrs: { height: "220", width: "100%", src: "img/cover.jpg" }
       }),
       _vm._v(" "),
       _c(

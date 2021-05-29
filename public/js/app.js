@@ -68300,7 +68300,7 @@ var index = {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + ".chunk.js";
+/******/ 			return "js/" + chunkId + ".chunk.js";
 /******/ 		};
 /******/ 	})();
 /******/ 	

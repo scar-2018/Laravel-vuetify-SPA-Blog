@@ -1,6 +1,10 @@
 <template>
   <div>
-    Dashboard
+    <div>
+    	<div>
+    		
+    	</div>
+    </div>
   </div>
 </template>
 <script>
@@ -9,6 +13,8 @@
       return {
         
       }
+    },
+    mounted() {
     }
   }
 </script>
