@@ -52,5 +52,5 @@ npm install
 npm run dev
 ```
 ## Admin credentials
-email: admin@admin.com
-password: password
+- email: admin@admin.com
+- password: password
