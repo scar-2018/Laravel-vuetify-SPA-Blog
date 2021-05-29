@@ -24,7 +24,7 @@ class PostSeeder extends Seeder {
                 'title' => $title,
                 'slug' => \Illuminate\Support\Str::slug($title),
                 'content' => $faker->paragraph(20),
-                'user_id' => User::find(random_int(1, 20))->id,
+                'user_id' => User::find(random_int(1, 6))->id,
                 'online' => true,
                 'cover' => 'cover.jpg',
                 'visits' => random_int(0, 50)
