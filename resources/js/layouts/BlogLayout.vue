@@ -73,6 +73,20 @@
       </div>
     </v-app-bar>
 
+    <v-btn
+      v-scroll="onScroll"
+      v-show="btnShow"
+      fab
+      dark
+      fixed
+      bottom
+      right
+      color="primary"
+      @click="toTop"
+    >
+      <v-icon>mdi-chevron-up</v-icon>
+    </v-btn>
+
     <v-main style="margin-top: 80px;">
       <v-container class="fill-height">
         <v-layout>
@@ -83,15 +97,21 @@
           </v-row>
         </v-layout>
       </v-container>
+      <Footer />
     </v-main>
   </div>
 </template>
 
 <script>
+import Footer from '../components/Footer'
 export default {
+  components: {
+    Footer
+  },
   data() {
     return {
-      visibleSearch: false
+      visibleSearch: false,
+      btnShow: false
     }
   },
 
@@ -101,6 +121,14 @@ export default {
   methods: {
     onKeyup(e) {
       this.$refs.search.focus()
+    },
+    onScroll (e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset ||   e.target.scrollTop || 0
+      this.btnShow = top > 20
+    },
+    toTop () {
+      this.$vuetify.goTo(0)
     }
   }
 }

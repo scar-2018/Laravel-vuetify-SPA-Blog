@@ -8,7 +8,7 @@
           <h1>{{ post.title }}</h1>
           <span class="text--secondary">{{ post.ago }}</span>
           <span class="text--secondary">by</span>
-          <router-link to="/">{{ post.creator.name }}</router-link>
+          <router-link to="#">{{ post.creator.name }}</router-link>
           <div class="mt-4" v-html="post.content"></div>
 
           <v-divider class="my-8"></v-divider>
@@ -19,6 +19,8 @@
             @submit="submit"
           ></comment-form>
 
+          <v-divider class="my-8"></v-divider>
+          
           <div class="mt-8">
             <comment-card
               v-for="(comment, i) in comments"

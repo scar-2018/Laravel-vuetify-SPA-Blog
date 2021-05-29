@@ -293,6 +293,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -952,7 +954,7 @@ var render = function() {
                           _vm._v("by")
                         ]),
                         _vm._v(" "),
-                        _c("router-link", { attrs: { to: "/" } }, [
+                        _c("router-link", { attrs: { to: "#" } }, [
                           _vm._v(_vm._s(_vm.post.creator.name))
                         ]),
                         _vm._v(" "),
@@ -970,6 +972,8 @@ var render = function() {
                           },
                           on: { submit: _vm.submit }
                         }),
+                        _vm._v(" "),
+                        _c("v-divider", { staticClass: "my-8" }),
                         _vm._v(" "),
                         _c(
                           "div",
