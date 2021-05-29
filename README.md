@@ -34,9 +34,10 @@ composer install
 ```sh
 php artisan key:generate
 ```
-6. Install laravel passport
+6. Install laravel passport and config
 ```sh
 php artisan passport:install
+php artisan vendor:publish --tag=passport-config
 ```
 7. Setup database
 ```sh
