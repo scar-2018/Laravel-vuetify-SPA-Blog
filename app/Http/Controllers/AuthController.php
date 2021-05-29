@@ -3,35 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
     public function login(Request $request) {
-        $credentials = request()->validate([ 
-	        'email' => 'required|email',
-	        'password' => 'required',
-	    ]);
+    	$response = Http::asForm()->post(config('app.url') . 'oauth/token', [
+		    'grant_type' => 'password',
+		    'client_id' => config('passport.personal_access_client.id'),
+		    'client_secret' => config('passport.personal_access_client.secret'),
+		    'username' => $request->email,
+		    'password' => $request->password,
+		    'scope' => '',
+		]);
 
-        if(!Auth::attempt($credentials))
-            return response()->json([
-                'message' => 'Email and password incorrect.'
-            ], 401);
-
-        $user = $request->user();
-        $tokenResult = $user->createToken('laravel-vuetify-spa-blog');
-        $token = $tokenResult->token;
-        if ($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
-        $token->save();
-        return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse(
-                $tokenResult->token->expires_at
-            )->toDateTimeString()
-        ]);
+		return $response->json();
     }
 
     public function logout(Request $request) {
