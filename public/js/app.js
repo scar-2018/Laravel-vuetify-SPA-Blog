@@ -3638,7 +3638,11 @@ var posts = {
     loadingPost: false,
     savingPost: false,
     posts: [],
-    post: null
+    post: null,
+    pagination: {
+      current: 1,
+      total: 0
+    }
   },
   mutations: {
     SET_LOADING_POSTS: function SET_LOADING_POSTS(state, loading) {
@@ -3655,6 +3659,10 @@ var posts = {
     },
     SET_POST: function SET_POST(state, post) {
       state.post = post;
+    },
+    SET_PAGE: function SET_PAGE(state, data) {
+      state.pagination.current = data.meta.current_page;
+      state.pagination.total = data.meta.last_page;
     }
   },
   actions: {
@@ -3674,25 +3682,26 @@ var posts = {
               case 5:
                 response = _context.sent;
                 commit('SET_POSTS', response.data.data);
+                commit('SET_PAGE', response.data);
                 commit('SET_LOADING_POSTS', false);
                 return _context.abrupt("return", response);
 
-              case 11:
-                _context.prev = 11;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context["catch"](2);
                 console.log(_context.t0);
 
-              case 14:
-                _context.prev = 14;
+              case 15:
+                _context.prev = 15;
                 commit('SET_LOADING_POSTS', false);
-                return _context.finish(14);
+                return _context.finish(15);
 
-              case 17:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 11, 14, 17]]);
+        }, _callee, null, [[2, 12, 15, 18]]);
       }))();
     },
     getPost: function getPost(_ref2, slug) {

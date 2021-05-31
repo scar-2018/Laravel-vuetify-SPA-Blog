@@ -227,18 +227,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       category: this.$route.query.category,
       sortBy: this.$route.query.sortBy,
-      sorts: ['Latest', 'Popular'],
-      pagination: {
-        current: 1,
-        total: 0
-      }
+      sorts: ['Latest', 'Popular']
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
-    posts: function posts(state) {
-      return state.posts.posts;
-    }
-  })),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)('posts', ['posts', 'pagination'])),
   mounted: function mounted() {
     try {
       this.getPosts(this.$route.query);

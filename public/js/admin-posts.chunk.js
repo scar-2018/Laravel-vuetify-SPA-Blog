@@ -88,6 +88,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -123,7 +130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('posts', ['loadingPosts', 'loadingPost', 'posts'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('posts', ['loadingPosts', 'loadingPost', 'posts', 'pagination'])),
   watch: {
     dialogDelete: function dialogDelete(val) {
       val || this.closeDelete();
@@ -192,6 +199,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$nextTick(function () {
         _this2.editedItem = Object.assign({}, _this2.defaultItem);
         _this2.editedIndex = -1;
+      });
+    },
+    onPageChange: function onPageChange() {
+      this.getPosts({
+        page: this.pagination.current
       });
     }
   })
@@ -295,7 +307,8 @@ var render = function() {
         attrs: {
           headers: _vm.headers,
           items: _vm.posts,
-          loading: _vm.loadingPosts
+          loading: _vm.loadingPosts,
+          "hide-default-footer": ""
         },
         scopedSlots: _vm._u([
           {
@@ -472,6 +485,18 @@ var render = function() {
             }
           }
         ])
+      }),
+      _vm._v(" "),
+      _c("v-pagination", {
+        attrs: { length: _vm.pagination.total },
+        on: { input: _vm.onPageChange },
+        model: {
+          value: _vm.pagination.current,
+          callback: function($$v) {
+            _vm.$set(_vm.pagination, "current", $$v)
+          },
+          expression: "pagination.current"
+        }
       })
     ],
     1

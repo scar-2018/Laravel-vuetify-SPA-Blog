@@ -7,7 +7,11 @@ const posts = {
     loadingPost: false,
     savingPost: false,
     posts: [],
-    post: null
+    post: null,
+    pagination: {
+      current: 1,
+      total: 0
+    }
   },
   mutations : {
     SET_LOADING_POSTS(state, loading) {
@@ -25,6 +29,10 @@ const posts = {
     },
     SET_POST(state, post) {
       state.post = post
+    },
+    SET_PAGE(state, data) {
+      state.pagination.current = data.meta.current_page
+      state.pagination.total = data.meta.last_page
     }
   },
   actions : {
@@ -35,6 +43,7 @@ const posts = {
         const response = await postsApi.getPosts(query)
 
         commit('SET_POSTS', response.data.data)
+        commit('SET_PAGE', response.data)
         commit('SET_LOADING_POSTS', false)
         
         return response

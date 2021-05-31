@@ -59,21 +59,16 @@
       return {
         category: this.$route.query.category,
         sortBy: this.$route.query.sortBy,
-        sorts: ['Latest', 'Popular'],
-        pagination: {
-          current: 1,
-          total: 0
-        }
+        sorts: ['Latest', 'Popular']
       }
     },
     computed: {
-      ...mapState({
-        posts: (state) => state.posts.posts
-      })
+      ...mapState('posts', ['posts', 'pagination'])
     },
     mounted() {
       try {
         this.getPosts(this.$route.query)
+
       } catch (err) {
         console.log(err)
       }

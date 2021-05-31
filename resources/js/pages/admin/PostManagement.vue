@@ -4,6 +4,7 @@
       :headers="headers"
       :items="posts"
       :loading="loadingPosts"
+      hide-default-footer
     >
       <template v-slot:top>
         <v-toolbar
@@ -58,6 +59,12 @@
         </v-btn>
       </template>
     </v-data-table>
+
+    <v-pagination
+      v-model="pagination.current"
+      :length="pagination.total"
+      @input="onPageChange"
+    ></v-pagination>
   </v-card>
 </template>
 <script>
@@ -86,7 +93,7 @@
       }
     },
     computed: {
-      ...mapState('posts', ['loadingPosts', 'loadingPost', 'posts']),
+      ...mapState('posts', ['loadingPosts', 'loadingPost', 'posts', 'pagination']),
     },
 
     watch: {
@@ -127,6 +134,12 @@
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
+        })
+      },
+
+      onPageChange() {
+        this.getPosts({
+          page: this.pagination.current
         })
       }
     }
