@@ -209,6 +209,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -219,9 +225,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      category: '',
-      sortBy: 'Latest',
-      sorts: ['Latest', 'Popular']
+      category: this.$route.query.category,
+      sortBy: this.$route.query.sortBy,
+      sorts: ['Latest', 'Popular'],
+      pagination: {
+        current: 1,
+        total: 0
+      }
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
@@ -230,9 +240,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   })),
   mounted: function mounted() {
-    this.category = this.$route.query.category;
-    this.sortBy = this.$route.query.sortBy;
-
     try {
       this.getPosts(this.$route.query);
     } catch (err) {
@@ -249,6 +256,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.$router.push({
           name: 'posts',
           query: {
+            page: _this.pagination.current,
             sortBy: _this.sortBy,
             category: _this.category ? _this.category : ''
           }
@@ -713,6 +721,18 @@ var render = function() {
                     staticClass: "my-4",
                     attrs: { post: post }
                   })
+                }),
+                _vm._v(" "),
+                _c("v-pagination", {
+                  attrs: { length: _vm.pagination.total },
+                  on: { input: _vm.gotoPage },
+                  model: {
+                    value: _vm.pagination.current,
+                    callback: function($$v) {
+                      _vm.$set(_vm.pagination, "current", $$v)
+                    },
+                    expression: "pagination.current"
+                  }
                 })
               ],
               2

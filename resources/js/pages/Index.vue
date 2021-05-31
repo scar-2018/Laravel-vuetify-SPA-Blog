@@ -23,6 +23,12 @@
             :post="post"
             class="my-4"
           ></post-card>
+
+          <v-pagination
+            v-model="pagination.current"
+            :length="pagination.total"
+            @input="gotoPage"
+          ></v-pagination>
         </div>
       </v-col>
       <v-col cols="12" sm="4">
@@ -51,9 +57,13 @@
     },
     data() {
       return {
-        category: '',
-        sortBy: 'Latest',
-        sorts: ['Latest', 'Popular']
+        category: this.$route.query.category,
+        sortBy: this.$route.query.sortBy,
+        sorts: ['Latest', 'Popular'],
+        pagination: {
+          current: 1,
+          total: 0
+        }
       }
     },
     computed: {
@@ -62,9 +72,6 @@
       })
     },
     mounted() {
-      this.category = this.$route.query.category
-      this.sortBy = this.$route.query.sortBy
-
       try {
         this.getPosts(this.$route.query)
       } catch (err) {
@@ -80,8 +87,9 @@
           this.$router.push({
             name: 'posts',
             query: {
+              page: this.pagination.current,
               sortBy: this.sortBy,
-              category: this.category ? this.category : ''
+              category: this.category ? this.category : '',
             }
           })
         })

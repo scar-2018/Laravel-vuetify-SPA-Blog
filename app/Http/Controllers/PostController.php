@@ -10,6 +10,16 @@ use App\Http\Resources\PostResource;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api')
+            ->only([
+                'destroy',
+                'store',
+                'update',
+            ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
