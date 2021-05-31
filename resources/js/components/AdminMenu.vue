@@ -23,16 +23,16 @@
   </v-list>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        items: [
-          { text: 'Dashboard', icon: 'mdi-monitor-dashboard', to: '/admin/dashboard' },
-          { text: 'Categories', icon: 'mdi-hexagon-multiple', to: '/admin/categories' },
-          { text: 'Posts', icon: 'mdi-file-document', to: '/admin/posts' },
-          { text: 'Comments', icon: 'mdi-comment-multiple', to: '/admin/comments' }
-        ]
-      }
+export default {
+  data() {
+    return {
+      items: [
+        { text: 'Dashboard', icon: 'mdi-monitor-dashboard', to: '/admin/dashboard' },
+        { text: 'Categories', icon: 'mdi-hexagon-multiple', to: '/admin/categories' },
+        { text: 'Posts', icon: 'mdi-file-document', to: '/admin/posts' },
+        { text: 'Comments', icon: 'mdi-comment-multiple', to: '/admin/comments' }
+      ]
     }
   }
+}
 </script>

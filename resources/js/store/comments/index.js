@@ -1,6 +1,6 @@
 import commentsApi from '../../services/api/comments'
 
-const comments = {
+export default {
   namespaced: true,
   state : {
     loadingComments: false,
@@ -58,5 +58,3 @@ const comments = {
     }
   }
 }
-
-export default comments;

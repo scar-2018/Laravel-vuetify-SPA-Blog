@@ -74,8 +74,8 @@
     </v-app-bar>
 
     <v-btn
-      v-scroll="onScroll"
       v-show="btnShow"
+      v-scroll="onScroll"
       fab
       dark
       fixed
@@ -125,6 +125,7 @@ export default {
     onScroll (e) {
       if (typeof window === 'undefined') return
       const top = window.pageYOffset ||   e.target.scrollTop || 0
+    
       this.btnShow = top > 20
     },
     toTop () {

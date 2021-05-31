@@ -1,13 +1,17 @@
 <template>
-  <v-card
-  >
+  <v-card>
     <img
       height="220"
       width="100%"
       src="img/cover.jpg"
       style="object-fit: cover;"
     />
-    <v-chip class="ml-4 mt-4 mb-n4" label color="" dark small>
+    <v-chip
+      class="ml-4 mt-4 mb-n4"
+      label
+      dark
+      small
+    >
       {{ post.category.name }}
     </v-chip>
     <v-card-title>{{ post.title }}</v-card-title>
@@ -33,27 +37,27 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
-  export default {
-    props: {
-      post: {
-        type: Object,
-        default: () => {}
-      }
-    },
-    data() {
-      return {
-
-      }
-    },
-    computed: {
-    },
-    mounted() {
-    },
-    methods: {
-      ...mapActions({
-      })
+export default {
+  props: {
+    post: {
+      type: Object,
+      default: () => {}
     }
+  },
+  data() {
+    return {
+
+    }
+  },
+  computed: {
+  },
+  mounted() {
+  },
+  methods: {
+    ...mapActions({
+    })
   }
+}
 </script>

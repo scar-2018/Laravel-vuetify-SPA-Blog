@@ -47,56 +47,56 @@
 </template>
 
 <script>
-  import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
-  import CommentForm from '../components/CommentForm'
-  import CommentCard from '../components/CommentCard'
-  import CategoriesCard from '../components/CategoriesCard'
+import CommentForm from '../components/CommentForm'
+import CommentCard from '../components/CommentCard'
+import CategoriesCard from '../components/CategoriesCard'
 
-  export default {
-    components: {
-      CommentCard, CategoriesCard, CommentForm
-    },
-    data() {
-      return {
+export default {
+  components: {
+    CommentCard, CategoriesCard, CommentForm
+  },
+  data() {
+    return {
 
-      }
-    },
-    computed: {
-      ...mapState({
-        loadingPost: (state) => state.posts.loadingPost,
-        post: (state) => state.posts.post,
-        comments: (state) => state.comments.comments,
-        categories: (state) => state.categories.categories,
-        submittingComment: (state) => state.comments.submittingComment
+    }
+  },
+  computed: {
+    ...mapState({
+      loadingPost: (state) => state.posts.loadingPost,
+      post: (state) => state.posts.post,
+      comments: (state) => state.comments.comments,
+      categories: (state) => state.categories.categories,
+      submittingComment: (state) => state.comments.submittingComment
+    })
+  },
+  mounted() {
+    this.addVisits(this.$route.params.slug)
+    this.getPost(this.$route.params.slug)
+    this.getComments(this.$route.params.slug)
+  },
+  methods: {
+    ...mapActions({
+      getPost: 'posts/getPost',
+      addVisits: 'posts/addVisits',
+      getComments: 'comments/getComments',
+      submitComment: 'comments/submitComment'
+    }),
+    categorySelected(category) {
+      this.$router.push({
+        name: 'posts',
+        query: {
+          sortBy: 'Latest',
+          category
+        }
       })
     },
-    mounted() {
-      this.addVisits(this.$route.params.slug)
-      this.getPost(this.$route.params.slug)
-      this.getComments(this.$route.params.slug)
-    },
-    methods: {
-      ...mapActions({
-        getPost: 'posts/getPost',
-        addVisits: 'posts/addVisits',
-        getComments: 'comments/getComments',
-        submitComment: 'comments/submitComment'
-      }),
-      categorySelected(category) {
-        this.$router.push({
-          name: 'posts',
-          query: {
-            sortBy: 'Latest',
-            category
-          }
-        })
-      },
-      async submit(data) {
-        await this.submitComment(data)
+    async submit(data) {
+      await this.submitComment(data)
 
-        this.getComments(this.$route.params.slug)
-      }
+      this.getComments(this.$route.params.slug)
     }
   }
+}
 </script>

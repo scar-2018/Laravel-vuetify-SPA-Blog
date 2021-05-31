@@ -1,6 +1,6 @@
 import postsApi from '../../services/api/posts'
 
-const posts = {
+export default {
   namespaced: true,
   state : {
     loadingPosts: false,
@@ -47,7 +47,7 @@ const posts = {
         commit('SET_LOADING_POSTS', false)
         
         return response
-      } catch(err) {
+      } catch (err) {
         console.log(err)
       } finally {
         commit('SET_LOADING_POSTS', false)
@@ -64,7 +64,7 @@ const posts = {
         commit('SET_LOADING_POST', false)
 
         return response
-      } catch(err) {
+      } catch (err) {
         throw (err.response.data)
       } finally {
         commit('SET_LOADING_POST', false)
@@ -76,7 +76,7 @@ const posts = {
       
       try {
         await postsApi.createPost(payload)
-      } catch(err) {
+      } catch (err) {
         throw (err.response.data)
       } finally {
         commit('SET_SAVING_POST', false)
@@ -88,7 +88,7 @@ const posts = {
       
       try {
         await postsApi.updatePost(payload)
-      } catch(err) {
+      } catch (err) {
         throw (err.response.data)
       } finally {
         commit('SET_SAVING_POST', false)
@@ -100,7 +100,7 @@ const posts = {
       
       try {
         await postsApi.deletePost(slug)
-      } catch(err) {
+      } catch (err) {
         throw (err.response.data)
       } finally {
         commit('SET_LOADING_POST', false)
@@ -110,11 +110,9 @@ const posts = {
     async addVisits({ store, commit }, slug) {
       try {
         await postsApi.addVisits(slug)
-      } catch(err) {
+      } catch (err) {
         console.log(err)
       }
     }
   }
 }
-
-export default posts;

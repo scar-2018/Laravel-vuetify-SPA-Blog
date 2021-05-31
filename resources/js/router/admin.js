@@ -1,65 +1,65 @@
 const routes = [
   {
-    path: "/admin",
+    path: '/admin',
     redirect: '/admin/dashboard',
     meta: {
-      layout: "admin-layout",
+      layout: 'admin-layout',
       requiresAuth: true
     }
   }, {
-    path: "/admin/login",
-    component: () => import(/* webpackChunkName: "admin-login" */ '../pages/admin/auth/Login.vue'),
+    path: '/admin/login',
+    component: () => import(/* webpackChunkName: 'admin-login' */ '../pages/admin/auth/Login.vue'),
     name: 'login',
     meta: {
-      layout: "simple-layout",
+      layout: 'simple-layout',
       requiresGuest: true
     }
   }, {
-    path: "/admin/dashboard",
-    component: () => import(/* webpackChunkName: "admin-dashboard" */ '../pages/admin/AdminDashboard.vue'),
-    name: "admin-dashboard",
+    path: '/admin/dashboard',
+    component: () => import(/* webpackChunkName: 'admin-dashboard' */ '../pages/admin/AdminDashboard.vue'),
+    name: 'admin-dashboard',
     meta: {
-      layout: "admin-layout",
+      layout: 'admin-layout',
       requiresAuth: true
     }
   }, {
-    path: "/admin/categories",
-    component: () => import(/* webpackChunkName: "admin-categories" */ '../pages/admin/CategoryManagement.vue'),
-    name: "admin-categories",
+    path: '/admin/categories',
+    component: () => import(/* webpackChunkName: 'admin-categories' */ '../pages/admin/CategoryManagement.vue'),
+    name: 'admin-categories',
     meta: {
-      layout: "admin-layout",
+      layout: 'admin-layout',
       requiresAuth: true
     }
   }, {
-    path: "/admin/posts",
-    component: () => import(/* webpackChunkName: "admin-posts" */ '../pages/admin/PostManagement.vue'),
-    name: "admin-posts",
+    path: '/admin/posts',
+    component: () => import(/* webpackChunkName: 'admin-posts' */ '../pages/admin/PostManagement.vue'),
+    name: 'admin-posts',
     meta: {
-      layout: "admin-layout",
+      layout: 'admin-layout',
       requiresAuth: true
     }
   }, {
-    path: "/admin/comments",
-    component: () => import(/* webpackChunkName: "admin-comments" */ '../pages/admin/CommentManagement.vue'),
-    name: "admin-comments",
+    path: '/admin/comments',
+    component: () => import(/* webpackChunkName: 'admin-comments' */ '../pages/admin/CommentManagement.vue'),
+    name: 'admin-comments',
     meta: {
-      layout: "admin-layout",
+      layout: 'admin-layout',
       requiresAuth: true
     }
   }, {
-    path: "/admin/posts/create",
-    component: () => import(/* webpackChunkName: "admin-post-create" */ '../pages/admin/PostCreate.vue'),
-    name: "admin-post-create",
+    path: '/admin/posts/create',
+    component: () => import(/* webpackChunkName: 'admin-post-create' */ '../pages/admin/PostCreate.vue'),
+    name: 'admin-post-create',
     meta: {
-      layout: "admin-layout",
+      layout: 'admin-layout',
       requiresAuth: true
     }
   }, {
-    path: "/admin/posts/edit/:slug",
-    component: () => import(/* webpackChunkName: "admin-post-edit" */ '../pages/admin/PostEdit.vue'),
-    name: "admin-post-edit",
+    path: '/admin/posts/edit/:slug',
+    component: () => import(/* webpackChunkName: 'admin-post-edit' */ '../pages/admin/PostEdit.vue'),
+    name: 'admin-post-edit',
     meta: {
-      layout: "admin-layout",
+      layout: 'admin-layout',
       requiresAuth: true
     }
   }

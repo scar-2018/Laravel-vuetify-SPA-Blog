@@ -37,7 +37,7 @@ export default {
         localStorage.setItem('token', response.data.access_token)
 
         return response
-      } catch(err) {
+      } catch (err) {
         commit('SET_ERROR', err.response.data)
 
         throw (err.response.data)
@@ -57,16 +57,12 @@ export default {
     },
 
     async signOut({ store, commit }) {
-      try {
-        const response = await authApi.signOut()
+      const response = await authApi.signOut()
 
-        commit('SET_LOGOUT_AUTH')
-        localStorage.removeItem('token')
+      commit('SET_LOGOUT_AUTH')
+      localStorage.removeItem('token')
 
-        return response
-      } catch (err) {
-        throw (err)
-      }
+      return response
     }
   }
 }

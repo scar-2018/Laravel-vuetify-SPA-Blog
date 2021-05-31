@@ -16,7 +16,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="primary" @click="deleteItemConfirm" :loading="submittingComment">OK</v-btn>
+                <v-btn color="primary" :loading="submittingComment" @click="deleteItemConfirm">OK</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -34,68 +34,68 @@
   </v-card>
 </template>
 <script>
-  import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
-  export default {
-    data() {
-      return {
-        dialog: false,
-        dialogDelete: false,
-        headers: [
-          { text: 'Email', value: 'author_email'},
-          { text: 'Author Name', value: 'author_name' },
-          { text: 'Description', value: 'description' },
-          { text: 'Actions', value: 'actions', sortable: false },
-        ],
-        editedIndex: -1,
-        editedItem: {
-          name: ''
-        },
-        defaultItem: {
-          name: ''
-        },
-      }
-    },
-    computed: {
-      ...mapState('comments', ['loadingComments', 'comments', 'submittingComment']),
-    },
-
-    watch: {
-      dialogDelete (val) {
-        val || this.closeDelete()
+export default {
+  data() {
+    return {
+      dialog: false,
+      dialogDelete: false,
+      headers: [
+        { text: 'Email', value: 'author_email' },
+        { text: 'Author Name', value: 'author_name' },
+        { text: 'Description', value: 'description' },
+        { text: 'Actions', value: 'actions', sortable: false }
+      ],
+      editedIndex: -1,
+      editedItem: {
+        name: ''
       },
-    },
-    mounted() {
-      this.getComments()
-    },
-    methods: {
-      ...mapActions('app', ['showSuccess', 'showError']),
-      ...mapActions('comments', ['getComments', 'deleteComment']),
-
-      deleteItem (item) {
-        this.editedIndex = item.id
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
-
-      async deleteItemConfirm () {
-        try {
-          await this.deleteComment(this.editedIndex)
-          this.closeDelete()
-          this.showSuccess('Successfully Deleted')
-          this.getComments()
-        } catch (err) {
-          this.showError(err)
-        }
-      },
-
-      closeDelete () {
-        this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
+      defaultItem: {
+        name: ''
       }
     }
+  },
+  computed: {
+    ...mapState('comments', ['loadingComments', 'comments', 'submittingComment'])
+  },
+
+  watch: {
+    dialogDelete (val) {
+      val || this.closeDelete()
+    }
+  },
+  mounted() {
+    this.getComments()
+  },
+  methods: {
+    ...mapActions('app', ['showSuccess', 'showError']),
+    ...mapActions('comments', ['getComments', 'deleteComment']),
+
+    deleteItem (item) {
+      this.editedIndex = item.id
+      this.editedItem = Object.assign({}, item)
+      this.dialogDelete = true
+    },
+
+    async deleteItemConfirm () {
+      try {
+        await this.deleteComment(this.editedIndex)
+        this.closeDelete()
+        this.showSuccess('Successfully Deleted')
+        this.getComments()
+      } catch (err) {
+        this.showError(err)
+      }
+    },
+
+    closeDelete () {
+      this.dialogDelete = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    }
   }
+}
 </script>

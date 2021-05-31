@@ -46,49 +46,49 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
-  import PostCard from '../components/PostCard'
-  import CategoriesCard from '../components/CategoriesCard'
+import PostCard from '../components/PostCard'
+import CategoriesCard from '../components/CategoriesCard'
 
-  export default {
-    components: {
-      PostCard, CategoriesCard
-    },
-    data() {
-      return {
-        category: this.$route.query.category,
-        sortBy: this.$route.query.sortBy,
-        sorts: ['Latest', 'Popular']
-      }
-    },
-    computed: {
-      ...mapState('posts', ['posts', 'pagination'])
-    },
-    mounted() {
-      try {
-        this.getPosts(this.$route.query)
+export default {
+  components: {
+    PostCard, CategoriesCard
+  },
+  data() {
+    return {
+      category: this.$route.query.category,
+      sortBy: this.$route.query.sortBy,
+      sorts: ['Latest', 'Popular']
+    }
+  },
+  computed: {
+    ...mapState('posts', ['posts', 'pagination'])
+  },
+  mounted() {
+    try {
+      this.getPosts(this.$route.query)
 
-      } catch (err) {
-        console.log(err)
-      }
-    },
-    methods: {
-      ...mapActions({
-        getPosts: 'posts/getPosts'
-      }),
-      gotoPage() {
-        this.$nextTick(() => {
-          this.$router.push({
-            name: 'posts',
-            query: {
-              page: this.pagination.current,
-              sortBy: this.sortBy,
-              category: this.category ? this.category : '',
-            }
-          })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  methods: {
+    ...mapActions({
+      getPosts: 'posts/getPosts'
+    }),
+    gotoPage() {
+      this.$nextTick(() => {
+        this.$router.push({
+          name: 'posts',
+          query: {
+            page: this.pagination.current,
+            sortBy: this.sortBy,
+            category: this.category ? this.category : ''
+          }
         })
-      }
+      })
     }
   }
+}
 </script>

@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-snackbar
-      :timeout="3000"
       v-model="toast.show"
+      :timeout="3000"
       top
       centered
       :color="toast.type == 'success' ? 'green' : 'error'"
@@ -25,18 +25,18 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
-  export default {
-    data() {
-      return {
-      }
-    },
-    computed: {
-      ...mapState('app', ['toast'])
-    },
-    methods: {
-      ...mapActions('app', ['hideNotification'])
+export default {
+  data() {
+    return {
     }
+  },
+  computed: {
+    ...mapState('app', ['toast'])
+  },
+  methods: {
+    ...mapActions('app', ['hideNotification'])
   }
+}
 </script>

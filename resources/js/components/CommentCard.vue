@@ -15,23 +15,23 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      comment: {
-        type: Object,
-        default: () => {}
-      }
-    },
-    data() {
-      return {
-
-      }
-    },
-    computed: {
-    },
-    mounted() {
-    },
-    methods: {
+export default {
+  props: {
+    comment: {
+      type: Object,
+      default: () => {}
     }
+  },
+  data() {
+    return {
+
+    }
+  },
+  computed: {
+  },
+  mounted() {
+  },
+  methods: {
   }
+}
 </script>

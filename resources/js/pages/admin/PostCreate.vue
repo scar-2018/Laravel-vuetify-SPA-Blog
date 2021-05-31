@@ -28,50 +28,50 @@
         >
         </v-textarea>
         <v-btn
-          @click="save"
           color="primary"
           :loading="savingPost"
           :disabled="savingPost"
+          @click="save"
         >Create</v-btn>
       </v-form>
     </v-card-text>
   </v-card>
 </template>
 <script>
-  import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
-  export default {
-    data() {
-      return {
-        form: {},
-        rules: {
-          required: value => !!value || 'Required.'
-        },
+export default {
+  data() {
+    return {
+      form: {},
+      rules: {
+        required: (value) => !!value || 'Required.'
       }
-    },
-    computed: {
-      ...mapState({
-        categories: (state) => state.categories.categories,
-        savingPost: (state) => state.posts.savingPost
-      }),
-    },
-    mounted() {
-      this.getCategories()
-    },
-    methods: {
-      ...mapActions('posts', ['createPost']),
-      ...mapActions('categories', ['getCategories']),
-      async save() {
-        if (this.$refs.form.validate()) {
-          try {
-            await this.createPost(this.form)
+    }
+  },
+  computed: {
+    ...mapState({
+      categories: (state) => state.categories.categories,
+      savingPost: (state) => state.posts.savingPost
+    })
+  },
+  mounted() {
+    this.getCategories()
+  },
+  methods: {
+    ...mapActions('posts', ['createPost']),
+    ...mapActions('categories', ['getCategories']),
+    async save() {
+      if (this.$refs.form.validate()) {
+        try {
+          await this.createPost(this.form)
 
-            this.$router.push({ name: 'admin-posts' })
-          } catch (err) {
-            console.log(err)
-          }
+          this.$router.push({ name: 'admin-posts' })
+        } catch (err) {
+          console.log(err)
         }
       }
     }
   }
+}
 </script>

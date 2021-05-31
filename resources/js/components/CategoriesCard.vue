@@ -1,6 +1,5 @@
 <template>
-  <v-card
-  >
+  <v-card>
     <v-list shaped>
       <v-list-item-group
         :value="value"
@@ -30,34 +29,35 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
-  export default {
-    props: {
-      value: {
-        type: String
-      }
-    },
-    data() {
-      return {
+export default {
+  props: {
+    value: {
+      type: String,
+      default: ''
+    }
+  },
+  data() {
+    return {
 
-      }
-    },
-    computed: {
-      ...mapState({
-        categories: (state) => state.categories.categories
-      })
-    },
-    mounted() {
-      this.getCategories()
-    },
-    methods: {
-      ...mapActions({
-        getCategories: 'categories/getCategories'
-      }),
-      updateValue(value) {
-        this.$emit('input', value)
-      }
+    }
+  },
+  computed: {
+    ...mapState({
+      categories: (state) => state.categories.categories
+    })
+  },
+  mounted() {
+    this.getCategories()
+  },
+  methods: {
+    ...mapActions({
+      getCategories: 'categories/getCategories'
+    }),
+    updateValue(value) {
+      this.$emit('input', value)
     }
   }
+}
 </script>

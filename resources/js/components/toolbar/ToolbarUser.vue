@@ -13,7 +13,7 @@
       </template>
 
       <v-list dense nav>
-        <v-list-item @click="logout" link>
+        <v-list-item link @click="logout">
           <v-list-item-icon>
             <v-icon small>mdi-logout-variant</v-icon>
           </v-list-item-icon>

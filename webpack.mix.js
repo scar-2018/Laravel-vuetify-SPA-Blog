@@ -17,8 +17,21 @@ mix.webpackConfig({
 		publicPath: '/laravel-vue-spa-blog/public/',
 		path: path.join(__dirname, "public"),
 		chunkFilename: "js/[id].chunk.js"
+	},
+	module: {
+		rules: [
+		  {
+		    enforce: 'pre',
+		    test: /\.(js|vue)$/,
+		    loader: 'eslint-loader',
+		    exclude: /node_modules/
+		  }
+		]
 	}
 });
+
+mix.webpackConfig({
+})
 
 mix.js('resources/js/app.js', 'public/js')
     .vue()

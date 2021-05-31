@@ -1,4 +1,4 @@
-const comments = {
+export default {
   namespaced: true,
   state : {
     toast: {
@@ -15,12 +15,12 @@ const comments = {
       state.toast.type = type
     },
     SET_MESSAGE(state, message) {
-      if (typeof(message) == 'string')
+      if (typeof(message) === 'string')
         state.toast.message = message
-      else if (typeof(message) == 'object') {
-        const result = Object.keys(message).reduce(function (r, k) {
-          return r.concat(message[k]);
-        }, []);
+      else if (typeof(message) === 'object') {
+        const result = Object.keys(message).reduce((r, k) => {
+          return r.concat(message[k])
+        }, [])
 
         state.toast.message = result[0]
       } else {
@@ -49,5 +49,3 @@ const comments = {
     }
   }
 }
-
-export default comments;

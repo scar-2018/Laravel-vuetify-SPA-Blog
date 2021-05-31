@@ -1,26 +1,26 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router';
+import VueRouter from 'vue-router'
 
 import store from '../store'
 import bootstrap from './bootstrap'
 
-import adminRoutes from "./admin"
-import publicRoutes from "./public"
+import adminRoutes from './admin'
+import publicRoutes from './public'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   ...adminRoutes,
   ...publicRoutes,
-	{
-    path: "*",
-    component: () => import(/* webpackChunkName: "blank" */ '../pages/BlankPage.vue'),
-    name: "blank",
+  {
+    path: '*',
+    component: () => import(/* webpackChunkName: 'blank' */ '../pages/BlankPage.vue'),
+    name: 'blank',
     meta: {
-      layout: "simple-layout"
+      layout: 'simple-layout'
     }
   }
-];
+]
 
 const router = new VueRouter({
   mode: 'history',
@@ -45,10 +45,12 @@ router.beforeEach(async (to, from, next) => {
   if (requiresAuth) {
     if (!isLoggedIn)
       return next({ name: 'login' })
+
     return next()
   } else if (requiresGuest) {
     if (isLoggedIn)
       return next({ name: 'admin-dashboard' })
+    
     return next()
   }
 

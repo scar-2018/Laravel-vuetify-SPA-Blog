@@ -1,8 +1,8 @@
-import Vue from 'vue';
+import Vue from 'vue'
 import vuetify from './vuetify'
-import Main from './Main.vue';
-import store from './store';
-import router from './router';
+import Main from './Main.vue'
+import store from './store'
+import router from './router'
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
@@ -12,5 +12,5 @@ const app = new Vue({
   router,
   vuetify,
   store,
-  render: h => h(Main)
-});
+  render: (h) => h(Main)
+})

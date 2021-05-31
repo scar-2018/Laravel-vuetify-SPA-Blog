@@ -1,6 +1,6 @@
 import categoriesApi from '../../services/api/categories'
 
-const categories = {
+export default {
   namespaced: true,
   state : {
     loadingCategories: false,
@@ -26,7 +26,7 @@ const categories = {
         const response = await categoriesApi.getCategories()
 
         commit('SET_CATEGORIES', response.data.data)
-      } catch(err) {
+      } catch (err) {
         console.log(err)
       }
 
@@ -37,7 +37,7 @@ const categories = {
       
       try {
         await categoriesApi.createCategory(data)
-      } catch(err) {
+      } catch (err) {
         throw (err.response.data)
       } finally {
         commit('SET_SUBMITTING_CATEGORY', false)
@@ -48,7 +48,7 @@ const categories = {
       
       try {
         await categoriesApi.updateCategory(data)
-      } catch(err) {
+      } catch (err) {
         throw (err.response.data)
       } finally {
         commit('SET_SUBMITTING_CATEGORY', false)
@@ -59,7 +59,7 @@ const categories = {
       
       try {
         await categoriesApi.deleteCategory(id)
-      } catch(err) {
+      } catch (err) {
         throw (err.response.data)
       }
 
@@ -67,5 +67,3 @@ const categories = {
     }
   }
 }
-
-export default categories;

@@ -3,6 +3,7 @@ import api from '../../api'
 export default {
   getPosts(queryObject) {
   	let append = '?'
+    
   	for (const [key, value] of Object.entries(queryObject)) {
   	  append += `&${key}=${value}`
     }

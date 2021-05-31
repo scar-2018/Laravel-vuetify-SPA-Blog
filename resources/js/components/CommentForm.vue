@@ -32,52 +32,53 @@
       </v-col>
       <v-btn
         color="primary"
-        @click="submit"
         :loading="submitting"
         :disabled="submitting"
+        @click="submit"
       >Submit</v-btn>
     </v-row>
   </v-form>
 </template>
 <script>
-  import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
-  export default {
-    props: {
-      postSlug: {
-        type: String,
-        default: ''
-      },
-      submitting: {
-        type: Boolean,
-        default: false
-      }
+export default {
+  props: {
+    postSlug: {
+      type: String,
+      default: ''
     },
-    data() {
-      return {
-        name: '',
-        email: '',
-        comment: '',
-        rules: {
-          required: value => !!value || 'Required.',
-          email: value => {
-            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            return pattern.test(value) || 'Invalid e-mail.'
-          },
-        },
-      }
-    },
-    methods: {
-      submit() {
-        if (this.$refs.form.validate()) {
-          this.$emit('submit', {
-            postSlug: this.postSlug,
-            name: this.name,
-            email: this.email,
-            comment: this.comment
-          })
+    submitting: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      name: '',
+      email: '',
+      comment: '',
+      rules: {
+        required: (value) => !!value || 'Required.',
+        email: (value) => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          
+          return pattern.test(value) || 'Invalid e-mail.'
         }
       }
     }
+  },
+  methods: {
+    submit() {
+      if (this.$refs.form.validate()) {
+        this.$emit('submit', {
+          postSlug: this.postSlug,
+          name: this.name,
+          email: this.email,
+          comment: this.comment
+        })
+      }
+    }
   }
+}
 </script>

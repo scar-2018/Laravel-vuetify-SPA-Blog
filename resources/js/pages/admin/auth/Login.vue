@@ -38,9 +38,9 @@
             </v-alert>
             <v-btn
               color="primary"
-              @click="submit"
               :loading="loading"
               :disabled="loading"
+              @click="submit"
             >submit</v-btn>
           </v-form>
         </v-card-text>
@@ -50,46 +50,46 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
-  export default {
-    data() {
-      return {
-        loading: false,
-        form: {
-          email: '',
-          password: ''
-        }
+export default {
+  data() {
+    return {
+      loading: false,
+      form: {
+        email: '',
+        password: ''
       }
-    },
-    computed: {
-      ...mapState('auth', ['errors'])
-    },
-    methods: {
-      ...mapActions('auth', ['login', 'resetErrors', 'getAuthUser']),
-      async submit() {
-        this.resetErrors()
+    }
+  },
+  computed: {
+    ...mapState('auth', ['errors'])
+  },
+  methods: {
+    ...mapActions('auth', ['login', 'resetErrors', 'getAuthUser']),
+    async submit() {
+      this.resetErrors()
 
-        if (this.$refs.form.validate()) {
-          this.loading = true
+      if (this.$refs.form.validate()) {
+        this.loading = true
+
+        try {
+          const response = await this.login(this.form)
 
           try {
-            const response = await this.login(this.form)
+            const userResponse = await this.getAuthUser()
 
-            try {
-              const userResponse = await this.getAuthUser()
-
-              this.$router.push({ name: 'admin-dashboard' })
-            } catch (err) {
-              console.log(err)
-            }
+            this.$router.push({ name: 'admin-dashboard' })
           } catch (err) {
             console.log(err)
-          } finally {
-            this.loading = false
           }
+        } catch (err) {
+          console.log(err)
+        } finally {
+          this.loading = false
         }
       }
     }
   }
+}
 </script>
