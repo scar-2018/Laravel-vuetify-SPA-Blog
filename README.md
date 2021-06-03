@@ -14,6 +14,7 @@
 - [Vuetify](https://vuetifyjs.com/en/) Vuetify components and responsive pages on all devices
 - [vue-router](https://router.vuejs.org/guide/) Vue router and frontend middleware
 - [vuex modules](https://vuex.vuejs.org/)
+- [ESLint](https://www.npmjs.com/package/@indielayer/eslint-config-vue) "@indielayer/eslint-config-vue": "^1.0.0"
 
 ## Functionalities to be added later
 - Multi User roles
