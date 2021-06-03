@@ -26,7 +26,6 @@ export default {
       } else {
         state.message = ''
       }
-
     }
   },
   actions : {

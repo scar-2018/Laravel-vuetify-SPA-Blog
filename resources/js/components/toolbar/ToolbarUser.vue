@@ -12,16 +12,31 @@
         </v-btn>
       </template>
 
-      <v-list dense nav>
-        <v-list-item link @click="logout">
-          <v-list-item-icon>
-            <v-icon small>mdi-logout-variant</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Logout</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      <v-card>
+        <v-list nav>
+          <v-list-item link to="/">
+            <v-list-item-icon>
+              <v-icon small>mdi-menu</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Blogs</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+        
+        <v-divider></v-divider>
+
+        <v-list dense nav>
+          <v-list-item link @click="logout">
+            <v-list-item-icon>
+              <v-icon small>mdi-logout-variant</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-card>
     </v-menu>
   </div>
 </template>

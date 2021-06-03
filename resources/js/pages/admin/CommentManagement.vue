@@ -4,6 +4,7 @@
       :headers="headers"
       :items="comments"
       :loading="loadingComments"
+      hide-default-footer
     >
       <template v-slot:top>
         <v-toolbar

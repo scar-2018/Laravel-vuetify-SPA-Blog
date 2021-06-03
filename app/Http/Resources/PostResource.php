@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\File;
 
 class PostResource extends JsonResource
 {
@@ -24,7 +25,7 @@ class PostResource extends JsonResource
             "category" => $this->category,
             "online" => !! $this->online,
             "creator" => $this->creator,
-            "cover" => $this->cover,
+            "cover_image" => File::exists('covers/' . $this->cover) ? 'covers/'.$this->cover : 'covers/cover.jpg',
             "visits" => $this->visits
         ];
     }

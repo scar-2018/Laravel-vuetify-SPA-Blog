@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
@@ -120,13 +122,26 @@ class PostController extends Controller
             'content' => 'required'
         ]);
 
-        $post->update([
-            'title' => $request->title,
-            'category_id' => $request->category_id,
-            'content' => $request->content,
-            'slug' => \Illuminate\Support\Str::slug($request->title),
-            'cover' => 'cover.jpg'
-        ]);
+        if ($request->file('cover')) {
+            $imageName = time().'.'.$request->cover->getClientOriginalExtension();
+            $request->cover->move(public_path('/covers'), $imageName);
+            File::delete(public_path('covers/' . $post->cover));
+
+            $post->update([
+                'title' => $request->title,
+                'category_id' => $request->category_id,
+                'content' => $request->content,
+                'slug' => \Illuminate\Support\Str::slug($request->title),
+                'cover' => $imageName
+            ]);
+        } else {
+            $post->update([
+                'title' => $request->title,
+                'category_id' => $request->category_id,
+                'content' => $request->content,
+                'slug' => \Illuminate\Support\Str::slug($request->title)
+            ]);
+        }
 
         return response()->json('Successfully updated');
     }

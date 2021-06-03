@@ -3,6 +3,25 @@
     <v-card-title>Edit post</v-card-title>
     <v-card-text>
       <v-form ref="form" @submit.prevent="save">
+        <v-img
+          contain
+          width="260"
+          height="160"
+          :eager="true"
+          :src="logoFileSrc"
+          class="mx-auto mb-4"
+          style="border: 1px dashed #ccc;"
+        >
+        </v-img>
+        <v-file-input
+          v-model="logoFileInput"
+          accept="image/*"
+          label="New Logo Image"
+          outlined
+          dense
+          prepend-icon="mdi-camera"
+          @change="prepareLogo"
+        ></v-file-input>
         <v-text-field
           v-model="form.title"
           :rules="[rules.required]"
@@ -44,6 +63,8 @@ export default {
   data() {
     return {
       form: null,
+      logoFileInput: undefined,
+      logoFileSrc: '',
       rules: {
         required: (value) => !!value || 'Required.'
       }
@@ -68,16 +89,35 @@ export default {
     }
   },
   methods: {
-    ...mapActions('posts', ['updatePost', 'getPost']),
+    ...mapActions('posts', ['updatePost', 'getPost', 'uploadLogo']),
     ...mapActions('categories', ['getCategories']),
     async save() {
       if (this.$refs.form.validate()) {
+        const formData = new FormData()
+
+        formData.append('_method', 'PUT')
+        formData.append('title', this.form.title)
+        formData.append('category_id', this.form.category_id)
+        formData.append('content', this.form.content)
+        formData.append('slug', this.form.slug)
+        formData.append('cover', this.logoFileInput)
+
         try {
-          await this.updatePost(this.form)
+          await this.updatePost(formData)
 
           this.$router.push({ name: 'admin-posts' })
         } catch (err) {
           console.log(err)
+        }
+      }
+    },
+    prepareLogo(file) {
+      if (file) {
+        const reader = new FileReader()
+
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+          this.logoFileSrc = reader.result
         }
       }
     }

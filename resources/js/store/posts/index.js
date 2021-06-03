@@ -39,19 +39,13 @@ export default {
     async getPosts({ store, commit }, query) {
       commit('SET_LOADING_POSTS', true)
       
-      try {
-        const response = await postsApi.getPosts(query)
+      const response = await postsApi.getPosts(query)
 
-        commit('SET_POSTS', response.data.data)
-        commit('SET_PAGE', response.data)
-        commit('SET_LOADING_POSTS', false)
-        
-        return response
-      } catch (err) {
-        console.log(err)
-      } finally {
-        commit('SET_LOADING_POSTS', false)
-      }
+      commit('SET_POSTS', response.data.data)
+      commit('SET_PAGE', response.data)
+      commit('SET_LOADING_POSTS', false)
+      
+      return response
     },
 
     async getPost({ store, commit }, slug) {

@@ -3,7 +3,7 @@
     <img
       height="220"
       width="100%"
-      src="img/cover.jpg"
+      :src="post.cover_image"
       style="object-fit: cover;"
     />
     <v-chip

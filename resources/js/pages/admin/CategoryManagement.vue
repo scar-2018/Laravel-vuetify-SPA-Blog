@@ -4,6 +4,7 @@
       :headers="headers"
       :items="categories"
       :loading="loadingCategories"
+      hide-default-footer
     >
       <template v-slot:top>
         <v-toolbar

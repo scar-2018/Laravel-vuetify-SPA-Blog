@@ -20,7 +20,11 @@ export default {
     return api.post('/posts', data)
   },
   updatePost(data) {
-    return api.put(`/posts/${data.slug}`, data)
+    return api.post(`/posts/${data.get('slug')}`, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
   },
   deletePost(slug) {
     return api.delete(`/posts/${slug}`)
