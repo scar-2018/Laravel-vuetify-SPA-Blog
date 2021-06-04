@@ -63,17 +63,13 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
-              <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="primary" :loading="submittingCategory" @click="deleteItemConfirm">OK</v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+          <delete-confirm-dlg
+            v-model="dialogDelete"
+            :loading="submittingCategory"
+            @close="closeDelete"
+            @submit="deleteItemConfirm"
+          >
+          </delete-confirm-dlg>
         </v-toolbar>
       </template>
       <template v-slot:item.posts_count="{ item }">
@@ -96,8 +92,12 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
+import DeleteConfirmDlg from '../../components/DeleteConfirmDlg'
 
 export default {
+  components: {
+    DeleteConfirmDlg
+  },
   data() {
     return {
       dialog: false,

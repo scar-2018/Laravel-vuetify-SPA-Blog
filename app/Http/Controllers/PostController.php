@@ -125,7 +125,8 @@ class PostController extends Controller
         if ($request->file('cover')) {
             $imageName = time().'.'.$request->cover->getClientOriginalExtension();
             $request->cover->move(public_path('/covers'), $imageName);
-            File::delete(public_path('covers/' . $post->cover));
+            if ($post->cover !== 'cover.jpg')
+                File::delete(public_path('covers/' . $post->cover));
 
             $post->update([
                 'title' => $request->title,
