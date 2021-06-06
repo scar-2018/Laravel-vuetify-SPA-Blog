@@ -69,17 +69,21 @@ class PostController extends Controller
         $user = User::findOrFail(1);
 
         $data = request()->validate([
+            'cover' => 'required',
             'title' => 'required',
             'category_id' => 'required',
             'content' => 'required'
         ]);
+
+        $imageName = time().'.'.$request->cover->getClientOriginalExtension();
+        $request->cover->move(public_path('/covers'), $imageName);
 
         $post = $user->posts()->create([
             'title' => $request->title,
             'category_id' => $request->category_id,
             'content' => $request->content,
             'slug' => \Illuminate\Support\Str::slug($request->title),
-            'cover' => 'cover.jpg'
+            'cover' => $imageName
         ]);
 
         return new PostResource($post);
